@@ -13,6 +13,14 @@ const ExtraWrapper = styled.div`
   width: 100%;
 `;
 
+const AnimWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  transition: opacity ease 0.3s 0s;
+  will-change: opacity;
+`;
+
 const Wrapper = styled.div`
   height: 100%;
   width: 100%;
@@ -23,10 +31,11 @@ const Wrapper = styled.div`
 let interval: ReturnType<typeof setInterval> | null = null;
 
 export const Bg = () => {
+  const [isChanging, setIsChanging] = useState(false);
   const [img, setImg] = useState('');
 
   useEffect(() => {
-    const imgChange = async () => {
+    const imgChange = () => {
       const random = randomInt(0, imgs.length);
       const fileName = `img_bg/1920/${imgs[random]}`;
 
@@ -36,7 +45,15 @@ export const Bg = () => {
     imgChange();
 
     interval = setInterval(() => {
-      imgChange();
+      setIsChanging(true);
+
+      setTimeout(() => {
+        imgChange();
+      }, 300); // transition duration
+
+      setTimeout(() => {
+        setIsChanging(false);
+      }, 700);
     }, 12000);
 
     return () => {
@@ -46,9 +63,13 @@ export const Bg = () => {
     };
   }, [imgs]);
 
+  const opacity = isChanging ? 0 : 1;
+
   return (
     <ExtraWrapper>
-      <Wrapper style={{ backgroundImage: `url(${img})` }} />
+      <AnimWrapper style={{ opacity: opacity }}>
+        <Wrapper style={{ backgroundImage: `url(${img})` }} />
+      </AnimWrapper>
 
       <ProgressBar />
     </ExtraWrapper>
