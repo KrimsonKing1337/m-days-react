@@ -1,5 +1,5 @@
 {
-  "name": "m-days-react-modern",
+  "name": "m-days-react-standalone",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -17,8 +17,7 @@
     }
   },
   "lint-staged": {
-    "*.{ts,tsx}": "eslint --fix",
-    "*.scss": "stylelint --fix"
+    "*.{ts,tsx}": "eslint --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
