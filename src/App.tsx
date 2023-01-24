@@ -1,9 +1,9 @@
 import React from 'react';
 
-import './assets/styles/styles.scss';
+import './styles/styles.scss';
 
 export const App = () => (
   <div>
-	m-days-react-standalone App
+    m-days-react-standalone App
   </div>
 );

@@ -131,7 +131,7 @@ module.exports = (env = {}, argv) => {
   const buildDir = path.join(__dirname, (mobile ? 'cordova/www' : 'dist'));
 
   return {
-    entry: ['core-js/stable', './src/index.jsx'],
+    entry: ['core-js/stable', './src/index.tsx'],
     mode: webpackMode,
     devtool: !isProd ? 'eval-source-map' : false,
     devServer: {
