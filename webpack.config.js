@@ -7,6 +7,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 
+const root = path.join(__dirname);
 const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
 
 module.exports = (env = {}, argv) => {
@@ -32,6 +33,12 @@ module.exports = (env = {}, argv) => {
       template: './public/index.ejs',
       isMobile: !!mobile,
       isProd,
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: `${root}/public/`,
+        to: `${root}/dist/`,
+      }],
     }),
   ];
 
