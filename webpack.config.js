@@ -162,6 +162,7 @@ module.exports = (env = {}, argv) => {
         path.resolve(__dirname, './src'),
         path.resolve(__dirname, './node_modules'),
         path.resolve(__dirname, './assets'),
+        path.resolve(__dirname, './public'),
       ],
       alias: {
         '@src': path.resolve(__dirname, 'src'),
