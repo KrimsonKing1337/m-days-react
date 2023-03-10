@@ -9,12 +9,6 @@ module.exports = function (api) {
       {
         corejs: { version: 3 },
         useBuiltIns: 'usage',
-        targets: {
-          'edge': '17',
-          'firefox': '60',
-          'chrome': '67',
-          'safari': '11.1',
-        },
       },
     ],
   ];

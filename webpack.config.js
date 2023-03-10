@@ -31,6 +31,7 @@ module.exports = (env = {}, argv) => {
     }),
     new HtmlWebpackPlugin({
       template: './public/index.ejs',
+      scriptLoading: 'blocking', // removes defer
       isMobile: !!mobile,
       isProd,
     }),
@@ -55,12 +56,14 @@ module.exports = (env = {}, argv) => {
     },
     {
       test: /\.(tsx?|jsx?)$/,
-      use: ['babel-loader', {
-        loader: 'ifdef-loader',
-        options: {
-          env: env,
-        },
-      }],
+      use: [
+        'babel-loader',
+        'astroturf/loader', {
+          loader: 'ifdef-loader',
+          options: {
+            env: env,
+          },
+        }],
       exclude: /node_modules/,
     },
     {
@@ -82,7 +85,9 @@ module.exports = (env = {}, argv) => {
             postcssOptions: {
               ident: 'postcss',
               plugins: [
-                require('autoprefixer'),
+                require('autoprefixer', {
+                  flexbox: true,
+                }),
               ],
             },
           },

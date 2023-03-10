@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import styled from 'styled-components';
+import styled from 'astroturf/react';
 
 import { twoDigitsAlways } from 'utils/twoDigitsAlways';
 

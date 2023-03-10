@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import styled from 'styled-components';
+import styled from 'astroturf/react';
 import imgs from 'img_bg.json';
 
 import { ProgressBar } from 'components/ProgressBar';
