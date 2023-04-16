@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import styled from 'astroturf/react';
-import imgs from 'img_bg.json';
 
 import { ProgressBar } from 'components/ProgressBar';
 
-import { randomInt } from 'utils/randomInt';
+import { getRandomImgPath } from './utils';
 
 const ExtraWrapper = styled.div`
   position: relative;
@@ -24,27 +23,43 @@ const AnimWrapper = styled.div`
 const Wrapper = styled.div`
   height: 100%;
   width: 100%;
-  background: no-repeat;
+  background: no-repeat center;
   background-size: cover;
 `;
 
-let interval: ReturnType<typeof setInterval> | null = null;
+const NextImgCache = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: 100px;
+  width: 100px;
+  opacity: 0;
+`;
 
 export const Bg = () => {
   const [isChanging, setIsChanging] = useState(false);
   const [img, setImg] = useState('');
 
+  const nextImgInitValue = getRandomImgPath();
+  const [nextImg, setNextImg] = useState(nextImgInitValue);
+  const nextImgRef = useRef(nextImgInitValue);
+
+  useEffect(() => {
+    nextImgRef.current = nextImg;
+  }, [nextImg]);
+
   useEffect(() => {
     const imgChange = () => {
-      const random = randomInt(0, imgs.length);
-      const fileName = `img_bg/1920/${imgs[random]}`;
+      const nextImgNewValue = getRandomImgPath();
 
-      setImg(fileName);
+      setImg(nextImgRef.current);
+      setNextImg(nextImgNewValue);
     };
 
     imgChange();
 
-    interval = setInterval(() => {
+    const interval = setInterval(() => {
       setIsChanging(true);
 
       setTimeout(() => {
@@ -61,12 +76,14 @@ export const Bg = () => {
         clearInterval(interval);
       }
     };
-  }, [imgs]);
+  }, []);
 
   const opacity = isChanging ? 0 : 1;
 
   return (
     <ExtraWrapper>
+      <NextImgCache style={{ backgroundImage: `url(${nextImg})` }} />
+
       <AnimWrapper style={{ opacity: opacity }}>
         <Wrapper style={{ backgroundImage: `url(${img})` }} />
       </AnimWrapper>
