@@ -30,8 +30,8 @@ module.exports = (env = {}, argv) => {
       'isSbMode': JSON.stringify(sb),
     }),
     new HtmlWebpackPlugin({
-      template: './public/app.ejs',
-      filename: 'app.html',
+      template: './public/index.ejs',
+      filename: 'index.html',
       scriptLoading: 'blocking', // removes defer
       isMobile: !!mobile,
       isProd,
@@ -152,11 +152,7 @@ module.exports = (env = {}, argv) => {
       port: 3001, // todo
       hot: true,
       liveReload: false,
-      historyApiFallback: {
-        rewrites: [
-          { from: /^\/app/, to: '/app.html' },
-        ],
-      },
+      historyApiFallback: true,
     },
     output: {
       // пустой publicPath нужен для кордовы. она не может найти bundle.min.js, если его путь начинается с '/'
