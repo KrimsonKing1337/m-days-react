@@ -30,7 +30,8 @@ module.exports = (env = {}, argv) => {
       'isSbMode': JSON.stringify(sb),
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.ejs',
+      template: './public/app.ejs',
+      filename: 'app.html',
       scriptLoading: 'blocking', // removes defer
       isMobile: !!mobile,
       isProd,
@@ -149,10 +150,13 @@ module.exports = (env = {}, argv) => {
     devServer: {
       contentBase: buildDir,
       port: 3001, // todo
-      historyApiFallback: true,
       hot: true,
       liveReload: false,
-      // https: true, // доступ к камере работает только через https
+      historyApiFallback: {
+        rewrites: [
+          { from: /^\/app/, to: '/app.html' },
+        ],
+      },
     },
     output: {
       // пустой publicPath нужен для кордовы. она не может найти bundle.min.js, если его путь начинается с '/'
