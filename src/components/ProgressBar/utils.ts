@@ -1,12 +1,13 @@
 import moment from 'moment';
 
-moment.locale('en-bgInit');
+moment.locale('en');
 
 export const getValues = () => {
   const date = moment();
   const day = parseInt(date.format('DD'), 10);
+  const nameOfDay = date.format('ddd');
   const month = parseInt(date.format('MM'), 10);
-  const monthText = date.format('MMMM');
+  const nameOfMonth = date.format('MMMM');
   const year = parseInt(date.format('YYYY'), 10);
   const hours = parseInt(date.format('HH'), 10);
   const minutes = parseInt(date.format('mm'), 10);
@@ -27,6 +28,7 @@ export const getValues = () => {
   return {
     date,
     day,
+    nameOfDay,
     month,
     year,
     hours,
@@ -35,7 +37,7 @@ export const getValues = () => {
     milliseconds,
     dayCount,
     daysInYear,
-    monthText,
+    nameOfMonth,
     progress,
     progressFull,
     progressShort,

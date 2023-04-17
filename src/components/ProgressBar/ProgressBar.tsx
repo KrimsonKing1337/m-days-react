@@ -153,7 +153,8 @@ export const ProgressBar = () => {
   const {
     year,
     day,
-    monthText,
+    nameOfDay,
+    month,
     hours,
     minutes,
     seconds,
@@ -163,6 +164,7 @@ export const ProgressBar = () => {
     progressShort,
   } = values;
 
+  const monthToPrint = twoDigitsAlways(month);
   const hoursToPrint = twoDigitsAlways(hours);
   const minutesToPrint = twoDigitsAlways(minutes);
   const secondsToPrint = twoDigitsAlways(seconds);
@@ -177,7 +179,7 @@ export const ProgressBar = () => {
             </Year>
 
             <Month>
-              {`${day} ${monthText}`}
+              {`${day}.${monthToPrint} ${nameOfDay}`}
             </Month>
           </Left>
 
