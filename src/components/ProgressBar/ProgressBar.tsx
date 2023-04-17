@@ -139,7 +139,7 @@ export const ProgressBar = () => {
       const newValues = getValues();
 
       setValues(newValues);
-    }, 125);
+    }, 100);
 
     return () => {
       if (interval) {

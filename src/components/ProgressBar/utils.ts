@@ -3,7 +3,7 @@ import moment from 'moment';
 moment.locale('en');
 
 export const getValues = () => {
-  const date = moment('2023-12-31T23:59:59');
+  const date = moment();
   const day = parseInt(date.format('DD'), 10);
   const nameOfDay = date.format('ddd');
   const month = parseInt(date.format('MM'), 10);
@@ -17,12 +17,16 @@ export const getValues = () => {
   const daysInYear = moment([year, 11, 31]).diff(yearStart, 'days') + 1;
   const dayOfYear = date.dayOfYear();
 
-  const millisecondsNow = dayOfYear * (hours * 60 * 60 * 1000)
-    + (minutes * 60 * 1000)
-    + (seconds * 1000)
-    + milliseconds;
+  const dayInMilliseconds = 24 * 60 * 60 * 1000;
 
-  const millisecondsFull = daysInYear * 24 * 60 * 60 * 1000; // 31 536 000 000
+  const millisecondsNow = dayOfYear * dayInMilliseconds
+    + hours * 60 * 60 * 1000
+    + minutes * 60 * 1000
+    + seconds * 1000
+    + milliseconds
+    - dayInMilliseconds;
+
+  const millisecondsFull = daysInYear * dayInMilliseconds; // 31 536 000 000
 
   const progress = millisecondsNow / millisecondsFull * 100;
   const progressFull = progress.toFixed(7);
