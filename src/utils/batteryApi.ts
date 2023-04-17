@@ -5,7 +5,7 @@ export async function startBatteryWatch(
   const battery = await (navigator as any).getBattery();
 
   function updateLevelInfo() {
-    updateLevelInfoCb(battery.level * 100 < 100);
+    updateLevelInfoCb(battery.level * 100 < 15);
   }
 
   function updateChargeInfo() {
