@@ -17,11 +17,10 @@ export const getValues = () => {
   const daysInYear = moment([year, 11, 31]).diff(yearStart, 'days') + 1;
   const dayOfYear = date.dayOfYear();
 
-  const millisecondsNow = dayOfYear * 24 * 60 * 60 * 1000
-    - (hours * minutes * seconds * 1000)
-    - (minutes * seconds * 1000)
-    - (seconds * 1000)
-    - milliseconds;
+  const millisecondsNow = dayOfYear * (hours * 60 * 60 * 1000)
+    + (minutes * 60 * 1000)
+    + (seconds * 1000)
+    + milliseconds;
 
   const millisecondsFull = daysInYear * 24 * 60 * 60 * 1000; // 31 536 000 000
 
