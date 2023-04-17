@@ -129,19 +129,17 @@ const PercentFull = styled.span`
   color: #fff;
 `;
 
-let interval: ReturnType<typeof setInterval> | null = null;
-
 export const ProgressBar = () => {
   const initValues = getValues();
 
   const [values, setValues] = useState(initValues);
 
   useEffect(() => {
-    interval = setInterval(() => {
+    const interval = setInterval(() => {
       const newValues = getValues();
 
       setValues(newValues);
-    }, 100);
+    }, 125);
 
     return () => {
       if (interval) {
@@ -159,7 +157,7 @@ export const ProgressBar = () => {
     minutes,
     seconds,
     progressFull,
-    dayCount,
+    dayOfYear,
     daysInYear,
     progressShort,
   } = values;
@@ -203,7 +201,7 @@ export const ProgressBar = () => {
             </Progress>
 
             <Day>
-              {`${dayCount} of ${daysInYear} monochrome days`}
+              {`${dayOfYear} of ${daysInYear} monochrome days`}
             </Day>
           </Center>
 
