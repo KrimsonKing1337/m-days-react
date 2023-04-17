@@ -2,10 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import styled from 'astroturf/react';
 
+import BatteryLowIcon from 'assets/icons/i-battery-low.svg';
+
 import { ProgressBar } from 'components/ProgressBar';
+
+import { startBatteryWatch } from 'utils/batteryApi';
 
 import { getRandomImgPath } from './utils';
 
+//# region styles
 const ExtraWrapper = styled.div`
   position: relative;
   height: 100%;
@@ -37,7 +42,35 @@ const NextImgCache = styled.div`
   opacity: 0;
 `;
 
+const BatteryWarning = styled.div`
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  z-index: 1;
+  opacity: 0.5;
+  animation: blink-animation 0.5s infinite;
+  animation-direction: alternate-reverse;
+  
+  svg {
+    transform: scale(2);
+    
+    * {
+      stroke: #FF0000;
+    }
+  }
+
+  @keyframes blink-animation {
+    to {
+      opacity: 1;
+    }
+  }
+`;
+//# endregion styles
+
 export const Bg = () => {
+  const [batteryIsLow, setBatteryIsLow] = useState(false);
+  const [batteryIsCharging, setBatteryIsCharging] = useState(false);
+
   const [isChanging, setIsChanging] = useState(false);
   const [img, setImg] = useState('');
 
@@ -78,10 +111,24 @@ export const Bg = () => {
     };
   }, []);
 
+  useEffect(() => {
+    startBatteryWatch(
+      (isLow) => setBatteryIsLow(isLow),
+      (isCharging) => setBatteryIsCharging(isCharging),
+    );
+  }, []);
+
   const opacity = isChanging ? 0 : 1;
+  const showBatteryLowIcon = batteryIsLow && !batteryIsCharging;
 
   return (
     <ExtraWrapper>
+      <BatteryWarning>
+        {showBatteryLowIcon && (
+          <BatteryLowIcon />
+        )}
+      </BatteryWarning>
+
       <NextImgCache style={{ backgroundImage: `url(${nextImg})` }} />
 
       <AnimWrapper style={{ opacity: opacity }}>
