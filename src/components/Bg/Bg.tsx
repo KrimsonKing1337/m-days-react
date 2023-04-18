@@ -1,12 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import styled from 'astroturf/react';
+import axios from 'axios';
+
+import type { Weather } from '@types';
 
 import BatteryLowIcon from 'assets/icons/i-battery-low.svg';
 
 import { ProgressBar } from 'components/ProgressBar';
 
 import { startBatteryWatch } from 'utils/batteryApi';
+import { getCurrentPosition } from 'utils/gpsApi';
 
 import { getRandomImgPath } from './utils';
 
@@ -65,9 +69,22 @@ const BatteryWarning = styled.div`
     }
   }
 `;
+
+const WeatherStyled = styled.div`
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  z-index: 1;
+  font-family: "Avenir LT Std 35 Light Oblique";
+  font-size: 38px;
+  color: #fff;
+`;
 //# endregion styles
 
 export const Bg = () => {
+  const [geolocation, setGeolocation] = useState<GeolocationCoordinates | null>(null);
+  const [weather, setWeather] = useState<Weather | null>(null);
+
   const [batteryIsLow, setBatteryIsLow] = useState(false);
   const [batteryIsCharging, setBatteryIsCharging] = useState(false);
 
@@ -118,16 +135,51 @@ export const Bg = () => {
     );
   }, []);
 
+  useEffect(() => {
+    getCurrentPosition(
+      (pos) => setGeolocation(pos.coords),
+      () => setGeolocation(null),
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!geolocation) {
+      return;
+    }
+
+    (async () => {
+      const { latitude, longitude } = geolocation;
+
+      const result = await axios.get(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`,
+      );
+
+      setWeather(result.data);
+    })();
+  }, [geolocation]);
+
   const opacity = isChanging ? 0 : 1;
   const showBatteryLowIcon = batteryIsLow && !batteryIsCharging;
+  const showWeather = !!weather;
+
+  const temperatureIsNotSubZero = weather?.current_weather.temperature && weather?.current_weather.temperature > 0;
+  const signNearTheTemperature = temperatureIsNotSubZero ? '+' : '-';
 
   return (
     <ExtraWrapper>
-      <BatteryWarning>
-        {showBatteryLowIcon && (
+      {showWeather && (
+        <WeatherStyled>
+          {signNearTheTemperature}
+          {weather?.current_weather.temperature}
+          °C
+        </WeatherStyled>
+      )}
+
+      {showBatteryLowIcon && (
+        <BatteryWarning>
           <BatteryLowIcon />
-        )}
-      </BatteryWarning>
+        </BatteryWarning>
+      )}
 
       <NextImgCache style={{ backgroundImage: `url(${nextImg})` }} />
 
