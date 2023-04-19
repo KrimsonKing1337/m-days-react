@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import styled from 'astroturf/react';
-import axios from 'axios';
 
 import type { Weather } from '@types';
 
@@ -11,6 +10,8 @@ import { ProgressBar } from 'components/ProgressBar';
 
 import { startBatteryWatch } from 'utils/batteryApi';
 import { getCurrentPosition } from 'utils/gpsApi';
+
+import { getCurrentWeather } from '../../api';
 
 import { getRandomImgPath } from './utils';
 
@@ -147,15 +148,19 @@ export const Bg = () => {
       return;
     }
 
-    (async () => {
+    const updateWeather = async () => {
       const { latitude, longitude } = geolocation;
 
-      const result = await axios.get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`,
-      );
+      const weather = await getCurrentWeather({ latitude, longitude });
 
-      setWeather(result.data);
-    })();
+      setWeather(weather);
+    };
+
+    updateWeather();
+
+    setInterval(() => {
+      updateWeather();
+    }, 900000); // each 15 minutes
   }, [geolocation]);
 
   const opacity = isChanging ? 0 : 1;
