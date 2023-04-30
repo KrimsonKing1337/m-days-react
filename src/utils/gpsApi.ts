@@ -9,6 +9,6 @@ export type GetCurrentPositionParams = {
   errorCb: (pos: GeolocationPositionError) => void;
 };
 
-export function getCurrentPosition({ successCb, errorCb }: GetCurrentPositionParams) {
+export const getCurrentPosition = ({ successCb, errorCb }: GetCurrentPositionParams) => {
   navigator.geolocation.getCurrentPosition(successCb, errorCb, options);
-}
+};
