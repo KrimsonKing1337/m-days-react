@@ -4,9 +4,11 @@ const options = {
   maximumAge: 0,
 };
 
-export function getCurrentPosition(
-  successCb: (pos: GeolocationPosition) => void,
-  errorCb: (pos: GeolocationPositionError) => void,
-) {
+export type GetCurrentPositionParams = {
+  successCb: (pos: GeolocationPosition) => void;
+  errorCb: (pos: GeolocationPositionError) => void;
+};
+
+export function getCurrentPosition({ successCb, errorCb }: GetCurrentPositionParams) {
   navigator.geolocation.getCurrentPosition(successCb, errorCb, options);
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import styled from 'astroturf/react';
+import { getCurrentWeather } from 'api';
 
 import type { Weather } from '@types';
 
@@ -10,8 +11,6 @@ import { ProgressBar } from 'components/ProgressBar';
 
 import { startBatteryWatch } from 'utils/batteryApi';
 import { getCurrentPosition } from 'utils/gpsApi';
-
-import { getCurrentWeather } from '../../api';
 
 import { getRandomImgPath } from './utils';
 
@@ -130,17 +129,17 @@ export const Bg = () => {
   }, []);
 
   useEffect(() => {
-    startBatteryWatch(
-      (isLow) => setBatteryIsLow(isLow),
-      (isCharging) => setBatteryIsCharging(isCharging),
-    );
+    startBatteryWatch({
+      updateLevelInfoCb: (isLow) => setBatteryIsLow(isLow),
+      updateChargeInfoCb: (isCharging) => setBatteryIsCharging(isCharging),
+    });
   }, []);
 
   useEffect(() => {
-    getCurrentPosition(
-      (pos) => setGeolocation(pos.coords),
-      () => setGeolocation(null),
-    );
+    getCurrentPosition({
+      successCb: (pos) => setGeolocation(pos.coords),
+      errorCb: () => setGeolocation(null),
+    });
   }, []);
 
   useEffect(() => {

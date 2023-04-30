@@ -1,21 +1,23 @@
-export async function startBatteryWatch(
-  updateLevelInfoCb: (isLow: boolean) => void,
-  updateChargeInfoCb: (isCharging: boolean) => void,
-) {
+export type StartBatteryWatchParams = {
+  updateLevelInfoCb: (isLow: boolean) => void;
+  updateChargeInfoCb: (isCharging: boolean) => void;
+};
+
+export const startBatteryWatch = async ({ updateLevelInfoCb, updateChargeInfoCb }: StartBatteryWatchParams) => {
   const battery = await (navigator as any).getBattery();
 
-  function updateLevelInfo() {
+  const updateLevelInfo = () => {
     updateLevelInfoCb(battery.level * 100 < 15);
-  }
+  };
 
-  function updateChargeInfo() {
+  const updateChargeInfo = () => {
     updateChargeInfoCb(battery.charging);
-  }
+  };
 
-  function updateAllBatteryInfo() {
+  const updateAllBatteryInfo = () => {
     updateChargeInfo();
     updateLevelInfo();
-  }
+  };
 
   updateAllBatteryInfo();
 
@@ -26,4 +28,4 @@ export async function startBatteryWatch(
   battery.addEventListener('levelchange', () => {
     updateLevelInfo();
   });
-}
+};
