@@ -92,17 +92,23 @@ const Time = styled.div`
   width: 100%;
 `;
 
-const HoursOrMinutes = styled.span`
+const Hours = styled.div`
   font-family: 'Avenir LT Std 95 Black Oblique';
   font-size: 98px;
   color: #fff;
 `;
 
-const Seconds = styled.span`
+const Minutes = styled.div`
+  font-family: 'Avenir LT Std 95 Black Oblique';
+  font-size: 98px;
+  color: #fff;
+  width: 130px;
+`;
+
+const Seconds = styled.div`
   font-family: 'Avenir LT Std 35 Light';
   font-size: 59px;
   font-style: italic;
-  margin-left: 10px;
   top: -5px;
   color: #fff;
   width: 80px;
@@ -190,13 +196,13 @@ export const ProgressBar = () => {
 
           <Center>
             <Time>
-              <HoursOrMinutes>
+              <Hours>
                 {`${hoursToPrint}:`}
-              </HoursOrMinutes>
+              </Hours>
 
-              <HoursOrMinutes>
+              <Minutes>
                 {minutesToPrint}
-              </HoursOrMinutes>
+              </Minutes>
 
               <Seconds>
                 {secondsToPrint}
