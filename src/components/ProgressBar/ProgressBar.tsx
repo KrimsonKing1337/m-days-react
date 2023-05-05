@@ -88,6 +88,8 @@ const Time = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  justify-content: center;
+  width: 100%;
 `;
 
 const HoursOrMinutes = styled.span`
@@ -100,7 +102,7 @@ const Seconds = styled.span`
   font-family: 'Avenir LT Std 35 Light';
   font-size: 59px;
   font-style: italic;
-  padding-left: 10px;
+  margin-left: 10px;
   top: -5px;
   color: #fff;
 `;
