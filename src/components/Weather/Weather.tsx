@@ -7,14 +7,28 @@ import type { WeatherResp } from '@types';
 
 import { getCurrentPosition } from 'utils/gpsApi';
 
+import { getIconSrc } from './utils';
+
 const Wrapper = styled.div`
   position: absolute;
   top: 50px;
   left: 50px;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Value = styled.div`
   font-family: "Avenir LT Std 35 Light Oblique";
   font-size: 38px;
   color: #fff;
+`;
+
+const Icon = styled.img`
+  height: 64px;
+  width: 64px;
 `;
 
 export const Weather = () => {
@@ -48,20 +62,29 @@ export const Weather = () => {
     }, 900000); // each 15 minutes
   }, [geolocation]);
 
-  const showWeather = !!weather;
+  if (!weather || !weather.current_weather) {
+    return null;
+  }
 
-  const temperatureIsNotSubZero = weather?.current_weather.temperature && weather?.current_weather.temperature > 0;
+  const { temperature, weathercode } = weather.current_weather;
+
+  const temperatureIsNotSubZero = temperature > 0;
   const signNearTheTemperature = temperatureIsNotSubZero ? '+' : '-';
 
+  const iconSrc = getIconSrc(weathercode);
+  const iconSrcReady = `icons/weather/${iconSrc}`;
+
   return (
-    <>
-      {showWeather && (
-        <Wrapper>
-          {signNearTheTemperature}
-          {weather?.current_weather.temperature}
-          °C
-        </Wrapper>
+    <Wrapper>
+      {iconSrc && (
+        <Icon src={iconSrcReady} alt="" />
       )}
-    </>
+
+      <Value>
+        {signNearTheTemperature}
+        {temperature}
+        °C
+      </Value>
+    </Wrapper>
   );
 };

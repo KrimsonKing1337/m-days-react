@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'astroturf/react';
 
 import { ProgressBar } from 'components/ProgressBar';
-import { Weather } from 'components/Weather';
 import { Battery } from 'components/Battery';
 
 import { getRandomImgPath } from './utils';
@@ -86,7 +85,6 @@ export const Bg = () => {
 
   return (
     <ExtraWrapper>
-      <Weather />
       <Battery />
 
       <NextImgCache style={{ backgroundImage: `url(${nextImg})` }} />

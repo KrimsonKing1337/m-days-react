@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'astroturf/react';
 
+import { Weather } from 'components/Weather';
+
 import { twoDigitsAlways } from 'utils/twoDigitsAlways';
 
 import { getValues } from './utils';
@@ -170,6 +172,8 @@ export const ProgressBar = () => {
   return (
     <Wrapper>
       <Shadow>
+        <Weather />
+
         <ContentWrapper>
           <Left>
             <Year>

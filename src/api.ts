@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { WeatherResp } from '@types';
+
 export type getCurrentWeatherParams = {
   latitude: number;
   longitude: number;
@@ -12,7 +14,7 @@ export async function getCurrentWeather({ latitude, longitude }: getCurrentWeath
     current_weather: true,
   };
 
-  const result = await axios.get('https://api.open-meteo.com/v1/forecast', { params });
+  const result = await axios.get<WeatherResp>('https://api.open-meteo.com/v1/forecast', { params });
 
   return result.data;
 }
