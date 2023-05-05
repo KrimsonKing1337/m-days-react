@@ -105,6 +105,7 @@ const Seconds = styled.span`
   margin-left: 10px;
   top: -5px;
   color: #fff;
+  width: 80px;
 `;
 
 const Progress = styled.div`
