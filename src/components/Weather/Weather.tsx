@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import styled from 'astroturf/react';
-import { getCurrentWeather } from 'api';
+import { getCurrentWeather, getDailyWeather, getHourlyWeather } from 'api';
 
 import type { WeatherResp } from '@types';
 
@@ -51,6 +51,9 @@ export const Weather = () => {
       const { latitude, longitude } = geolocation;
 
       const weather = await getCurrentWeather({ latitude, longitude });
+
+      await getHourlyWeather({ latitude, longitude });
+      await getDailyWeather({ latitude, longitude });
 
       setWeather(weather);
     };
