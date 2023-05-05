@@ -102,7 +102,7 @@ const Minutes = styled.div`
   font-family: 'Avenir LT Std 95 Black Oblique';
   font-size: 98px;
   color: #fff;
-  width: 130px;
+  width: 128px;
 `;
 
 const Seconds = styled.div`
@@ -111,7 +111,7 @@ const Seconds = styled.div`
   font-style: italic;
   top: -5px;
   color: #fff;
-  width: 80px;
+  width: 72px;
 `;
 
 const Progress = styled.div`
