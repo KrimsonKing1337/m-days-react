@@ -45,3 +45,14 @@ export async function getDailyWeather({ latitude, longitude }: getCurrentWeather
 
   return result.data;
 }
+
+// https://yandex.ru/pogoda/details/10-day-weather?lat=55.755863&lon=37.6177
+
+/*
+export async function getYandexWeather() {
+  const result = await axios.get<WeatherResp>('
+  https://corsproxy.io/?https%3A%2F%2Fyandex.ru%2Fpogoda%2Fdetails%2F10-day-weather%3Flat%3D55.755863%26lon%3D37.6177');
+
+  return result.data;
+}
+*/

@@ -18,6 +18,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: #fff;
+  gap: 12px;
+  opacity: 0.65;
 `;
 
 const Value = styled.div`
@@ -26,9 +29,13 @@ const Value = styled.div`
   color: #fff;
 `;
 
-const Icon = styled.img`
+const IconWrapper = styled.div`
   height: 64px;
   width: 64px;
+  
+  img {
+    width: 100%;
+  }
 `;
 
 export const Weather = () => {
@@ -55,6 +62,8 @@ export const Weather = () => {
       await getHourlyWeather({ latitude, longitude });
       await getDailyWeather({ latitude, longitude });
 
+      // await getYandexWeather();
+
       setWeather(weather);
     };
 
@@ -80,7 +89,9 @@ export const Weather = () => {
   return (
     <Wrapper>
       {iconSrc && (
-        <Icon src={iconSrcReady} alt="" />
+        <IconWrapper>
+          <img src={iconSrcReady} alt="" />
+        </IconWrapper>
       )}
 
       <Value>
