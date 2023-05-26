@@ -78,12 +78,12 @@ export const Weather = () => {
     return null;
   }
 
-  const { temperature, weathercode } = weather.current_weather;
+  const { temperature, weathercode, is_day } = weather.current_weather;
 
   const temperatureIsNotSubZero = temperature > 0;
   const signNearTheTemperature = temperatureIsNotSubZero ? '+' : '-';
 
-  const iconSrc = getIconSrc(weathercode);
+  const iconSrc = getIconSrc(weathercode, is_day);
   const iconSrcReady = `icons/weather/${iconSrc}`;
 
   return (

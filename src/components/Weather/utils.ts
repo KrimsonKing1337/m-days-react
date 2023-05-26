@@ -1,12 +1,14 @@
-export function getIconSrc(weathercode: number) {
+export function getIconSrc(weathercode: number, is_day: 0 | 1) {
+  const isDay = !!is_day;
+
   let iconSrc = '999.svg';
 
   if (weathercode === 0) {
-    iconSrc = '100.svg';
+    isDay ? iconSrc = '100.svg' : iconSrc = '150.svg';
   } else if (weathercode === 1) {
-    iconSrc = '102.svg';
+    isDay ? iconSrc = '102.svg' : iconSrc = '152.svg';
   } else if (weathercode === 2) {
-    iconSrc = '101.svg';
+    isDay ? iconSrc = '101.svg' : iconSrc = '151.svg';
   } else if (weathercode === 3) {
     iconSrc = '104.svg';
   } else if (weathercode === 45) {
@@ -38,11 +40,11 @@ export function getIconSrc(weathercode: number) {
   } else if (weathercode === 77) {
     iconSrc = '400.svg';
   } else if (weathercode === 80) {
-    iconSrc = '300.svg';
+    isDay ? iconSrc = '300.svg' : iconSrc = '350.svg';
   } else if (weathercode === 81 || weathercode === 82) {
-    iconSrc = '301.svg';
+    isDay ? iconSrc = '301.svg' : iconSrc = '351.svg';
   } else if (weathercode === 85 || weathercode === 86) {
-    iconSrc = '407.svg';
+    isDay ? iconSrc = '407.svg' : iconSrc = '457.svg';
   } else if (weathercode === 95) {
     iconSrc = '302.svg';
   } else if (weathercode === 96 || weathercode === 99) {
