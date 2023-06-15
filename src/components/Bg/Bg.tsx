@@ -86,13 +86,15 @@ export const Bg = () => {
   }, []);
 
   const onClickHandler = () => {
+    alert('Prepare yourself');
+
     if (timeout) {
       clearTimeout(timeout);
     }
 
     timeout = setTimeout(() => {
       setShowQuestion(true);
-    }, 60000 * 15);
+    }, 60000);
   };
 
   const opacity = isChanging ? 0 : 1;
