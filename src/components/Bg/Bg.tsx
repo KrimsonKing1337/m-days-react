@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'astroturf/react';
 
 import { ProgressBar } from 'components/ProgressBar';
-import { MainQuestion } from 'components/MainQuestion';
 import { Battery } from 'components/Battery';
 
 import { getRandomImgPath } from './utils';
@@ -41,10 +40,7 @@ const NextImgCache = styled.div`
 `;
 //# endregion styles
 
-let timeout: ReturnType<typeof setTimeout> | null = null;
-
 export const Bg = () => {
-  const [showQuestion, setShowQuestion] = useState(false);
   const [isChanging, setIsChanging] = useState(false);
   const [img, setImg] = useState('');
 
@@ -85,22 +81,10 @@ export const Bg = () => {
     };
   }, []);
 
-  const onClickHandler = () => {
-    alert('Prepare yourself');
-
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-
-    timeout = setTimeout(() => {
-      setShowQuestion(true);
-    }, 60000);
-  };
-
   const opacity = isChanging ? 0 : 1;
 
   return (
-    <ExtraWrapper onClick={onClickHandler}>
+    <ExtraWrapper>
       <Battery />
 
       <NextImgCache style={{ backgroundImage: `url(${nextImg})` }} />
@@ -109,7 +93,7 @@ export const Bg = () => {
         <Wrapper style={{ backgroundImage: `url(${img})` }} />
       </AnimWrapper>
 
-      {showQuestion ? <MainQuestion /> : <ProgressBar />}
+      <ProgressBar />
     </ExtraWrapper>
   );
 };
