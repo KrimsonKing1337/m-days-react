@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'astroturf/react';
 
 import { Weather } from 'components/Weather';
-import { MainQuestion } from 'components/MainQuestion';
 
 import { twoDigitsAlways } from 'utils/twoDigitsAlways';
 
@@ -141,13 +140,10 @@ const PercentFull = styled.span`
   color: #fff;
 `;
 
-let timeout: ReturnType<typeof setTimeout> | null = null;
-
 export const ProgressBar = () => {
   const initValues = getValues();
 
   const [values, setValues] = useState(initValues);
-  const [showQuestion, setShowQuestion] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -162,18 +158,6 @@ export const ProgressBar = () => {
       }
     };
   }, []);
-
-  const onClickHandler = () => {
-    alert('Prepare yourself');
-
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-
-    timeout = setTimeout(() => {
-      setShowQuestion(true);
-    }, 60000);
-  };
 
   const {
     year,
@@ -197,57 +181,53 @@ export const ProgressBar = () => {
   return (
     <Wrapper>
       <Shadow>
-        {!showQuestion && <Weather />}
+        <Weather />
 
-        {showQuestion && <MainQuestion/>}
+        <ContentWrapper>
+          <Left>
+            <Year>
+              {year}
+            </Year>
 
-        {!showQuestion && (
-          <ContentWrapper onClick={onClickHandler}>
-            <Left>
-              <Year>
-                {year}
-              </Year>
+            <Month>
+              {`${day}.${monthToPrint} ${nameOfDay}`}
+            </Month>
+          </Left>
 
-              <Month>
-                {`${day}.${monthToPrint} ${nameOfDay}`}
-              </Month>
-            </Left>
+          <Center>
+            <Time>
+              <Hours>
+                {`${hoursToPrint}:`}
+              </Hours>
 
-            <Center>
-              <Time>
-                <Hours>
-                  {`${hoursToPrint}:`}
-                </Hours>
+              <Minutes>
+                {minutesToPrint}
+              </Minutes>
 
-                <Minutes>
-                  {minutesToPrint}
-                </Minutes>
+              <Seconds>
+                {secondsToPrint}
+              </Seconds>
+            </Time>
 
-                <Seconds>
-                  {secondsToPrint}
-                </Seconds>
-              </Time>
+            <Progress>
+              <ProgressWalking style={{ width: `${progressFull}%` }} />
+            </Progress>
 
-              <Progress>
-                <ProgressWalking style={{ width: `${progressFull}%` }} />
-              </Progress>
+            <Day>
+              {`${dayOfYear} of ${daysInYear} monochrome days`}
+            </Day>
+          </Center>
 
-              <Day>
-                {`${dayOfYear} of ${daysInYear} monochrome days`}
-              </Day>
-            </Center>
+          <Right>
+            <Percent>
+              {`${progressShort}%`}
+            </Percent>
 
-            <Right>
-              <Percent>
-                {`${progressShort}%`}
-              </Percent>
-
-              <PercentFull>
-                {`${progressFull}%`}
-              </PercentFull>
-            </Right>
-          </ContentWrapper>
-        )}
+            <PercentFull>
+              {`${progressFull}%`}
+            </PercentFull>
+          </Right>
+        </ContentWrapper>
       </Shadow>
     </Wrapper>
   );
