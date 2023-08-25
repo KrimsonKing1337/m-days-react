@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import styled from 'astroturf/react';
-import { getCurrentWeather, getDailyWeather, getHourlyWeather } from 'api';
+import { getCurrentWeather, getDailyWeather, getHourlyWeather } from 'm-days-core/api';
+import { getCurrentPosition } from 'm-days-core/utils/gpsApi';
 
-import type { WeatherResp } from '@types';
-
-import { getCurrentPosition } from 'utils/gpsApi';
+import type { WeatherResp } from 'm-days-core/@types';
 
 import { getIconSrc } from './utils';
 
