@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,

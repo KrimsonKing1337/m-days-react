@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styled from 'astroturf/react';
 import { getCurrentWeather, getDailyWeather, getHourlyWeather } from 'm-days-core/api';
-import { getCurrentPosition } from 'm-days-core/utils/gpsApi';
+import { getCurrentPosition, getSrcOfWeatherIcon } from 'm-days-core/utils';
 
 import type { WeatherResp } from 'm-days-core/@types';
-
-import { getIconSrc } from './utils';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -82,7 +80,7 @@ export const Weather = () => {
   const temperatureIsNotSubZero = temperature > 0;
   const signNearTheTemperature = temperatureIsNotSubZero ? '+' : '-';
 
-  const iconSrc = getIconSrc(weathercode, is_day);
+  const iconSrc = getSrcOfWeatherIcon(weathercode, is_day);
   const iconSrcReady = `icons/weather/${iconSrc}`;
 
   return (

@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styled from 'astroturf/react';
+import { getValuesForProgressBar, twoDigitsAlways } from 'm-days-core/utils';
 
 import { Weather } from 'components/Weather';
-
-import { twoDigitsAlways } from 'utils/twoDigitsAlways';
-
-import { getValues } from './utils';
 
 const Wrapper = styled.div`
   user-select: none;
@@ -141,13 +138,13 @@ const PercentFull = styled.span`
 `;
 
 export const ProgressBar = () => {
-  const initValues = getValues();
+  const initValues = getValuesForProgressBar();
 
   const [values, setValues] = useState(initValues);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newValues = getValues();
+      const newValues = getValuesForProgressBar();
 
       setValues(newValues);
     }, 100);

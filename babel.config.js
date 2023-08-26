@@ -3,7 +3,10 @@ module.exports = function (api) {
 
   const presets = [
     ['@babel/preset-typescript'],
-    ['@babel/preset-react'],
+    ['@babel/preset-react', {
+      'runtime': 'automatic',
+    },
+    ],
     [
       '@babel/preset-env',
       {
@@ -14,7 +17,7 @@ module.exports = function (api) {
   ];
 
   const plugins = [
-    ['@babel/plugin-proposal-decorators', { legacy: true } ],
+    ['@babel/plugin-proposal-decorators', { legacy: true }],
     ['@babel/plugin-proposal-class-properties'],
     ['@babel/plugin-transform-object-assign'],
     ['@babel/transform-runtime', { useESModules: true, regenerator: true }],
