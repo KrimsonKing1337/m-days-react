@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import styled from 'astroturf/react';
-
-import BatteryLowIcon from 'assets/icons/i-battery-low.svg';
-
-import { startBatteryWatch } from 'utils/batteryApi';
+import BatteryLowIcon from 'm-days-core/assets/icons/i-battery-low.svg';
+import { startBatteryWatch } from 'm-days-core/utils/batteryApi';
 
 const BatteryWarning = styled.div`
   position: absolute;
