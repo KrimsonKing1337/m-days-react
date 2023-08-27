@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run scan-imgs && webpack serve --mode=development --host 0.0.0.0 --disable-host-check",
     "build": "npm run scan-imgs && webpack --mode=production",
-    "scan-imgs": "node ./src/utils/scanImgs.ts",
+    "scan-imgs": "node ../m-days-core/scripts/scanImgs.js ../m-days-public",
     "lint": "npm-run-all --parallel lint:*",
     "lint:ts": "eslint \"./src/**/*.{ts,tsx}\" --fix",
     "lint:css": "stylelint \"src/**/*.scss\" --fix",
@@ -117,7 +117,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "m-days-core": "file:../m-days-core/tgz/m-days-core-0.0.9.tgz",
+    "m-days-core": "file:../m-days-core/tgz/m-days-core-0.0.12.tgz",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",

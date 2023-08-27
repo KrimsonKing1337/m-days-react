@@ -8,12 +8,14 @@ const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 
 const root = path.join(__dirname);
+const publicFolder = path.join(__dirname, '../m-days-public/');
 const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
 
 module.exports = (env = {}, argv) => {
   const webpackMode = argv.mode;
   const { analyze, mobile, sb } = env;
   const isProd = webpackMode === 'production';
+  const processEnv = dotenv.parsed;
 
   const plugins = [
     new CleanWebpackPlugin(),
@@ -26,11 +28,11 @@ module.exports = (env = {}, argv) => {
       },
     }),
     new DefinePlugin({
-      'process.env': JSON.stringify(dotenv.parsed),
+      'process.env': JSON.stringify(processEnv),
       'isSbMode': JSON.stringify(sb),
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.ejs',
+      template: `${publicFolder}/index.ejs`,
       filename: 'index.html',
       scriptLoading: 'blocking', // removes defer
       isMobile: !!mobile,
@@ -38,7 +40,7 @@ module.exports = (env = {}, argv) => {
     }),
     new CopyWebpackPlugin({
       patterns: [{
-        from: `${root}/public/`,
+        from: `${publicFolder}/`,
         to: `${root}/dist/`,
       }],
     }),
@@ -167,7 +169,7 @@ module.exports = (env = {}, argv) => {
         path.resolve(__dirname, './src'),
         path.resolve(__dirname, './node_modules'),
         path.resolve(__dirname, './assets'),
-        path.resolve(__dirname, './public'),
+        path.resolve(__dirname, '../m-days-public'),
       ],
       alias: {
         '@src': path.resolve(__dirname, 'src'),
