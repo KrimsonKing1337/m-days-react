@@ -1,12 +1,15 @@
-import { PropsWithChildren } from 'react';
+import { useSelector } from 'react-redux';
 
 import styled from 'astroturf/react';
 
+import { mainSelectors } from 'store/main';
+
 import { Menu } from 'components/Menu';
 
+//#region styles
 const Wrapper = styled.div`
   position: fixed;
-  z-index: 10;
+  z-index: 5;
   width: 100%;
   height: 100vh;
   top: 0;
@@ -30,6 +33,7 @@ const Wrapper = styled.div`
     } 
   }
 `;
+//#endregion styles
 
 const Content = styled.div`
   position: relative;
@@ -37,12 +41,10 @@ const Content = styled.div`
   margin: 0 auto;
 `;
 
-export type PopupProps = {
-  isActive: boolean;
-};
+export const Popup = () => {
+  const popupIsActive = useSelector(mainSelectors.popupIsActive);
 
-export const Popup = ({ isActive }: PropsWithChildren<PopupProps>) => {
-  const className = isActive ? 'isActive' : '';
+  const className = popupIsActive ? 'isActive' : '';
 
   return (
     <Wrapper className={className}>

@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'astroturf/react';
 
+import { mainActions, mainSelectors } from 'store/main';
+
+//#region styles
 const Button = styled.button`
   position: fixed;
   top: 20px;
@@ -60,19 +63,22 @@ const Helper = styled.span`
     }
   }
 `;
+//#endregion styles
 
 export const MenuBtn = () => {
-  const [isActive, setIsActive] = useState(false);
+  const dispatch = useDispatch();
+
+  const popupIsActive = useSelector(mainSelectors.popupIsActive);
 
   const buttonClickHandler = () => {
-    setIsActive(!isActive);
+    dispatch(mainActions.setPopupIsActive(!popupIsActive));
   };
 
-  const helperClassName = isActive ? 'isActive' : '';
+  const className = popupIsActive ? 'isActive' : '';
 
   return (
     <Button type="button" onClick={buttonClickHandler}>
-      <Helper className={helperClassName} />
+      <Helper className={className} />
     </Button>
   );
 };

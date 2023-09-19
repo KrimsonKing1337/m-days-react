@@ -1,5 +1,7 @@
+import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import { store } from 'store';
 import { About, Config, Main } from 'pages';
 
 import { MenuBtn } from 'components/MenuBtn';
@@ -9,11 +11,11 @@ import './styles/styles.scss';
 
 export const App = () => {
   return (
-    <>
+    <Provider store={store}>
       <BrowserRouter>
         <>
           <MenuBtn />
-          <Popup isActive={true} />
+          <Popup />
         </>
 
         <Routes>
@@ -22,6 +24,6 @@ export const App = () => {
           <Route path="/config" element={<Config />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </Provider>
   );
 };
