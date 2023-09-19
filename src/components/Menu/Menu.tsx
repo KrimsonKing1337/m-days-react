@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
+import { nanoid } from 'nanoid';
 import styled from 'astroturf/react';
+
+import { mainActions } from 'store/main';
+
+import { links } from './utils';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -39,6 +45,12 @@ const Item = styled.div`
 `;
 
 export const Menu = () => {
+  const dispatch = useDispatch();
+
+  const linkClickHandler = () => {
+    dispatch(mainActions.setPopupIsActive(false));
+  };
+
   return (
     <Wrapper>
       <Logo>
@@ -59,17 +71,15 @@ export const Menu = () => {
         </Item>
 
         <Item>
-          <Link to="/">
-            Go to main
-          </Link>
+          {links.map((linkCur) => {
+            const { to, label } = linkCur;
 
-          <Link to="/about">
-            More about us
-          </Link>
-
-          <Link to="/config">
-            Config
-          </Link>
+            return (
+              <Link key={nanoid()} to={to} onClick={linkClickHandler}>
+                {label}
+              </Link>
+            );
+          })}
         </Item>
       </div>
     </Wrapper>

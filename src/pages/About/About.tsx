@@ -1,4 +1,5 @@
 import styled from 'astroturf/react';
+import { nanoid } from 'nanoid';
 
 import { Header, Member } from './components';
 import { members, owners } from './utils';
@@ -45,6 +46,7 @@ export const About = () => {
 
             return (
               <MemberStyled
+                key={nanoid()}
                 imgSrc={img}
                 firstName={firstName}
                 lastName={lastName}
@@ -66,6 +68,7 @@ export const About = () => {
 
             return (
               <MemberStyled
+                key={nanoid()}
                 imgSrc={img}
                 firstName={firstName}
                 lastName={lastName}
