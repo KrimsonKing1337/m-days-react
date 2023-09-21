@@ -50,7 +50,7 @@ const Desc = styled.div`
 `;
 
 const FormWrapper = styled.div`
-  margin-top: 22px;
+  margin-top: 32px;
 `;
 
 type InputErrors = {

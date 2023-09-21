@@ -32,7 +32,7 @@ const InputStyled = styled.input`
   &:valid + label {
     top: -20px;
     left: 0;
-    color: #999;
+    color: #666;
     font-size: 12px;
   }
 `;
