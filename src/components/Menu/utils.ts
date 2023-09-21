@@ -11,4 +11,8 @@ export const links = [
     to: '/config',
     label: 'Config',
   },
+  {
+    to: '/standalone',
+    label: 'Go to standalone',
+  },
 ];
