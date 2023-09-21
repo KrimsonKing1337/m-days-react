@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { saveAs } from 'file-saver';
 import styled from 'astroturf/react';
@@ -6,6 +6,7 @@ import styled from 'astroturf/react';
 import { Input } from 'components/Input';
 import { Checkbox } from 'components/Checkbox';
 
+import { Errors, TimezonePicker } from './TimezonePicker';
 import { getValuesForConfigFile } from './utils';
 
 const Wrapper = styled.div`
@@ -56,24 +57,45 @@ const FormWrapper = styled.div`
 type InputErrors = {
   wiFiLogin: boolean;
   wiFiPass: boolean;
-  tz: boolean;
+  tz: Errors;
 };
 
 const inputErrorsDefault = {
   wiFiLogin: false,
   wiFiPass: false,
-  tz: false,
+  tz: {
+    chosenArea: false,
+    chosenItem: false,
+  },
 };
 
 export const Config = () => {
   const [wiFiLogin, setWiFiLogin] = useState('');
   const [wiFiPass, setWiFiPass] = useState('');
-  // const [tz, setTz] = useState('Moscow');
-  const [tz] = useState('Moscow');
+
+  const [tzChosenArea, setTzChosenArea] = useState('');
+  const [tzChosenItem, setTzChosenItem] = useState('');
+
   const [tzAuto, setTzAuto] = useState(true);
   const [gps, setGps] = useState(true);
 
   const [inputErrors, setInputErrors] = useState<InputErrors>(inputErrorsDefault);
+
+  const setInputErrorByKey = (key: keyof InputErrors, value: boolean | Errors) => {
+    setInputErrors({
+      ...inputErrors,
+      [key]: value,
+    });
+  };
+
+  useEffect(() => {
+    if (!!tzChosenArea || !!tzChosenItem) {
+      setInputErrorByKey('tz', {
+        chosenArea: false,
+        chosenItem: false,
+      });
+    }
+  }, [tzChosenArea, tzChosenItem]);
 
   const wiFiLoginInputChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -87,13 +109,6 @@ export const Config = () => {
     setWiFiPass(value);
   };
 
-  const setInputErrorByKey = (key: keyof InputErrors, value: boolean) => {
-    setInputErrors({
-      ...inputErrors,
-      [key]: value,
-    });
-  };
-
   const onGpsSwitchChange = () => {
     setGps((prevState) => !prevState);
   };
@@ -105,17 +120,23 @@ export const Config = () => {
   const buttonClickHandler = async () => {
     setInputErrors(inputErrorsDefault);
 
-    const tzHasError = !tzAuto && !tz;
+    const tzErrors: Errors = {
+      chosenArea: !tzChosenArea,
+      chosenItem: !tzChosenItem,
+    };
 
     const errors = {
       wiFiLogin: !wiFiLogin,
       wiFiPass: !wiFiPass,
-      tz: tzHasError,
+      tz: tzErrors,
     };
 
     setInputErrors(errors);
 
-    if (Object.values(errors).includes(true)) {
+    const includesErrorsFlat = Object.values(errors).includes(true);
+    const tzHasError = errors.tz.chosenArea || errors.tz.chosenItem;
+
+    if (includesErrorsFlat || tzHasError) {
       return;
     }
 
@@ -123,8 +144,8 @@ export const Config = () => {
       wiFiLogin,
       wiFiPass,
       gps,
-      tz,
       tzAuto,
+      tz: tzChosenItem,
     });
 
     const blob = new Blob(configFileValues, { type: 'text/plain;charset=utf-8' });
@@ -169,13 +190,23 @@ export const Config = () => {
             Wi-Fi pass
           </Input>
 
-          <Checkbox onChange={onGpsSwitchChange}>
+          <Checkbox defaultChecked={gps} onChange={onGpsSwitchChange}>
             GPS?
           </Checkbox>
 
-          <Checkbox onChange={onTzSwitchChange}>
+          <Checkbox defaultChecked={tzAuto} onChange={onTzSwitchChange}>
             Auto Timezone? (Recommended)
           </Checkbox>
+
+          {!tzAuto && (
+            <div style={{ marginTop: '50px' }}>
+              <TimezonePicker
+                errors={inputErrors.tz}
+                setTzChosenArea={setTzChosenArea}
+                setTzChosenItem={setTzChosenItem}
+              />
+            </div>
+          )}
 
           <Button onClick={buttonClickHandler}>
             Generate config file

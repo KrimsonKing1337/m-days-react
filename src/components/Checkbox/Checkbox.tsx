@@ -66,7 +66,7 @@ const Knob = styled.div`
 
 type Generic = InputHTMLAttributes<PropsWithChildren<unknown>>;
 
-export const Checkbox = ({ children }: Generic) => {
+export const Checkbox = ({ children, defaultChecked, ...rest }: Generic) => {
   return (
     <Wrapper>
       <LabelStyled>
@@ -74,7 +74,7 @@ export const Checkbox = ({ children }: Generic) => {
       </LabelStyled>
 
       <InputWrapper>
-        <InputStyled type="checkbox" />
+        <InputStyled defaultChecked={defaultChecked} type="checkbox" {...rest} />
 
         <Slider className="slider">
           <Knob className="knob" />
