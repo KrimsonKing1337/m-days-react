@@ -16,9 +16,20 @@ const InputStyled = styled.input`
   outline: none;
   width: 100%;
   background: transparent;
+  transition: border-bottom-color 250ms;
   
-  &:focus ~ label,
-  &:valid ~ label {
+  &:global {
+    &.error {
+      border-color: red;
+      
+      + label {
+        color: red !important;
+      }
+    }
+  }
+  
+  &:focus + label,
+  &:valid + label {
     top: -20px;
     left: 0;
     color: #999;
@@ -34,15 +45,21 @@ const LabelStyled = styled.label`
   font-size: 16px;
   color: #fff;
   pointer-events: none;
-  transition: .5s;
+  transition: top 500ms, color 250ms;
 `;
 
 type Generic = InputHTMLAttributes<PropsWithChildren<unknown>>;
 
-export const Input = ({ children, ...rest }: Generic) => {
+export type InputProps = Generic & {
+  error?: boolean;
+}
+
+export const Input = ({ error = false, children, ...rest }: InputProps) => {
+  const inputClassName = error ? 'error' : '';
+
   return (
     <Wrapper>
-      <InputStyled {...rest} />
+      <InputStyled className={inputClassName} {...rest} />
 
       <LabelStyled>
         {children}

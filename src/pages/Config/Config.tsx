@@ -153,6 +153,7 @@ export const Config = () => {
         <FormWrapper>
           <Input
             required
+            error={inputErrors.wiFiLogin}
             onChange={wiFiLoginInputChangeHandler}
             onKeyDown={() => setInputErrorByKey('wiFiLogin', false)}
           >
@@ -161,6 +162,7 @@ export const Config = () => {
 
           <Input
             required
+            error={inputErrors.wiFiPass}
             onChange={wiFiPassInputChangeHandler}
             onKeyDown={() => setInputErrorByKey('wiFiPass', false)}
           >
