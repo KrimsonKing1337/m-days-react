@@ -1,3 +1,7 @@
-[class$="singleValue"] {
-  color: #fff !important;
+[class^="TimezonePicker"] {
+  [class$="singleValue"],
+  [class$="placeholder"],
+  [class$="indicatorContainer"] {
+    color: #fff !important;
+  }
 }
