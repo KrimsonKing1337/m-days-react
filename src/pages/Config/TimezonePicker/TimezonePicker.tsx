@@ -1,13 +1,21 @@
 import { useMemo, useState } from 'react';
-import Select, { SingleValue } from 'react-select';
+import Select, { SingleValue, Theme } from 'react-select';
 
 import styled from 'astroturf/react';
 
 import { getTzAreas, getTzItemByArea, preparedForSelect } from '../utils';
 
+import './TimezonePicker.scss';
+
 const SelectWrapper = styled.div`
   border-radius: 4px;
+  margin-top: 15px;
+  color: #fff !important;
   
+  &:nth-child(1) {
+    margin-top: 0;
+  }
+
   &:global {
     &.error {
       border: 1px red solid;
@@ -66,15 +74,36 @@ export const TimezonePicker = ({
   const chosenAreaClassNames = errors.chosenArea ? 'error' : '';
   const chosenItemClassNames = errors.chosenItem ? 'error' : '';
 
+  const themeForSelect = (theme: Theme) => ({
+    ...theme,
+    borderRadius: 0,
+    colors: {
+      ...theme.colors,
+      primary25: '#666',
+      primary: '#666',
+      neutral0: 'black',
+    },
+  });
+
   return (
     <div>
       <SelectWrapper className={chosenAreaClassNames}>
-        <Select options={areasForSelect} onChange={selectAreaChangeHandler} />
+        <Select
+          theme={themeForSelect}
+          options={areasForSelect}
+          placeholder="Choose an area"
+          onChange={selectAreaChangeHandler}
+        />
       </SelectWrapper>
 
       {!!chosenArea && (
         <SelectWrapper className={chosenItemClassNames}>
-          <Select options={items} onChange={selectTzChangeHandler} />
+          <Select
+            theme={themeForSelect}
+            options={items}
+            placeholder="Choose an item"
+            onChange={selectTzChangeHandler}
+          />
         </SelectWrapper>
       )}
     </div>
