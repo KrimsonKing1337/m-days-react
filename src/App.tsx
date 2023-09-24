@@ -20,6 +20,8 @@ export const App = () => {
 
           <Route path="/about" element={<About />} />
           <Route path="/config" element={<Config />} />
+
+          <Route path="*" element={<Main />} />
         </Routes>
       </BrowserRouter>
     </Provider>
