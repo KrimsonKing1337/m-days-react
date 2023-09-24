@@ -1,1 +1,3 @@
-# m-days-react-standalone
+# m-days-react
+
+[m-days](https://m-days.ru)
