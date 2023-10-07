@@ -1,7 +1,8 @@
 [class^="TimezonePicker"] {
   [class$="singleValue"],
   [class$="placeholder"],
-  [class$="indicatorContainer"] {
+  [class$="indicatorContainer"],
+  [class$="Input"] > input {
     color: #fff !important;
   }
 }

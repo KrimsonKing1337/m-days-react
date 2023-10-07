@@ -92,6 +92,7 @@ export const TimezonePicker = ({
           theme={themeForSelect}
           options={areasForSelect}
           placeholder="Choose an area"
+          isSearchable
           onChange={selectAreaChangeHandler}
         />
       </SelectWrapper>
@@ -102,6 +103,7 @@ export const TimezonePicker = ({
             theme={themeForSelect}
             options={items}
             placeholder="Choose an item"
+            isSearchable
             onChange={selectTzChangeHandler}
           />
         </SelectWrapper>

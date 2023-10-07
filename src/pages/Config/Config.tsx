@@ -89,13 +89,11 @@ export const Config = () => {
   };
 
   useEffect(() => {
-    if (!!tzChosenArea || !!tzChosenItem) {
-      setInputErrorByKey('tz', {
-        chosenArea: false,
-        chosenItem: false,
-      });
-    }
-  }, [tzChosenArea, tzChosenItem]);
+    setInputErrorByKey('tz', {
+      chosenArea: false,
+      chosenItem: false,
+    });
+  }, [tzAuto]);
 
   const wiFiLoginInputChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -134,7 +132,7 @@ export const Config = () => {
     setInputErrors(errors);
 
     const includesErrorsFlat = Object.values(errors).includes(true);
-    const tzHasError = errors.tz.chosenArea || errors.tz.chosenItem;
+    const tzHasError = !tzAuto && (errors.tz.chosenArea || errors.tz.chosenItem);
 
     if (includesErrorsFlat || tzHasError) {
       return;
