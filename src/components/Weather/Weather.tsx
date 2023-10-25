@@ -79,6 +79,9 @@ export const Weather = () => {
 
   const temperatureIsNotSubZero = temperature > 0;
   const signNearTheTemperature = temperatureIsNotSubZero ? '+' : '-';
+  const temperaturePrepared = temperatureIsNotSubZero ? temperature : temperature.toString().substring(1);
+
+  const value = `${signNearTheTemperature} ${temperaturePrepared} °C`;
 
   const iconSrc = getSrcOfWeatherIcon(weathercode, is_day);
   const iconSrcReady = `icons/weather/${iconSrc}`;
@@ -92,9 +95,7 @@ export const Weather = () => {
       )}
 
       <Value>
-        {signNearTheTemperature}
-        {temperature}
-        °C
+        {value}
       </Value>
     </Wrapper>
   );
