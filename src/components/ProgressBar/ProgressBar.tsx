@@ -38,6 +38,14 @@ const ContentWrapper = styled.div`
   padding: 0 2%;
   color: #fff;
   opacity: 0.65;
+
+  &:global {
+    &.no-percent {
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 `;
 
 const Block = styled.div`
@@ -72,6 +80,12 @@ const Month = styled.span`
   padding-top: 8px;
   color: #fff;
   background: #020202;
+  
+  &:global {
+    &.no-percent {
+      background: none;
+    } 
+  }
 `;
 
 const Day = styled.span`
@@ -141,6 +155,14 @@ export const ProgressBar = () => {
   const initValues = getValuesForProgressBar();
 
   const [values, setValues] = useState(initValues);
+  const [noPercent, setNoPercent] = useState(false);
+
+  useEffect(() => {
+    const noPercentParam = new URLSearchParams(window.location.search).get('no-percent');
+    const value = noPercentParam !== null;
+
+    setNoPercent(value);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -175,18 +197,22 @@ export const ProgressBar = () => {
   const minutesToPrint = twoDigitsAlways(minutes);
   const secondsToPrint = twoDigitsAlways(seconds);
 
+  const noPercentClassName = noPercent ? 'no-percent' : '';
+
   return (
     <Wrapper>
       <Shadow>
         <Weather />
 
-        <ContentWrapper>
+        <ContentWrapper className={noPercentClassName}>
           <Left>
-            <Year>
-              {year}
-            </Year>
+            {!noPercent && (
+              <Year>
+                {year}
+              </Year>
+            )}
 
-            <Month>
+            <Month className={noPercentClassName}>
               {`${day}.${monthToPrint} ${nameOfDay}`}
             </Month>
           </Left>
@@ -206,24 +232,30 @@ export const ProgressBar = () => {
               </Seconds>
             </Time>
 
-            <Progress>
-              <ProgressWalking style={{ width: `${progressFull}%` }} />
-            </Progress>
+            {!noPercent && (
+              <>
+                <Progress>
+                  <ProgressWalking style={{ width: `${progressFull}%` }} />
+                </Progress>
 
-            <Day>
-              {`${dayOfYear} of ${daysInYear} monochrome days`}
-            </Day>
+                <Day>
+                  {`${dayOfYear} of ${daysInYear} monochrome days`}
+                </Day>
+              </>
+            )}
           </Center>
 
-          <Right>
-            <Percent>
-              {`${progressShort}%`}
-            </Percent>
+          {!noPercent && (
+            <Right>
+              <Percent>
+                {`${progressShort}%`}
+              </Percent>
 
-            <PercentFull>
-              {`${progressFull}%`}
-            </PercentFull>
-          </Right>
+              <PercentFull>
+                {`${progressFull}%`}
+              </PercentFull>
+            </Right>
+          )}
         </ContentWrapper>
       </Shadow>
     </Wrapper>

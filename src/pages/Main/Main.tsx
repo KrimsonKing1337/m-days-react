@@ -4,11 +4,11 @@ import { useLocation } from 'react-router';
 import { Bg } from 'components/Bg';
 
 export const Main = () => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
     if (pathname !== '/standalone') {
-      window.history.replaceState({}, '', '/');
+      window.history.replaceState({}, '', `/${search}`);
     }
   }, [pathname]);
 
