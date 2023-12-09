@@ -7,6 +7,8 @@ import { Themes } from '@types';
 
 import { Weather } from 'components/Weather';
 
+import { getPercentForDay } from './utils';
+
 const Wrapper = styled.div`
   user-select: none;
 
@@ -68,15 +70,19 @@ const Time = styled.div`
 `;
 
 export const ProgressBarVaporwave = () => {
-  const initValues = getValuesForProgressBar();
+  const initFullValues = getValuesForProgressBar();
+  const initPercentForDay = getPercentForDay();
 
-  const [values, setValues] = useState(initValues);
+  const [fullValues, setFullValues] = useState(initFullValues);
+  const [percentForDay, setPercentForDay] = useState(initPercentForDay);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newValues = getValuesForProgressBar();
+      const newFullValues = getValuesForProgressBar();
+      const newPercentForDay = getPercentForDay();
 
-      setValues(newValues);
+      setFullValues(newFullValues);
+      setPercentForDay(newPercentForDay);
     }, 100);
 
     return () => {
@@ -92,8 +98,7 @@ export const ProgressBarVaporwave = () => {
     month,
     hours,
     minutes,
-    progressFull,
-  } = values;
+  } = fullValues;
 
   const dayToPrint = twoDigitsAlways(day);
   const monthToPrint = twoDigitsAlways(month);
@@ -115,7 +120,7 @@ export const ProgressBarVaporwave = () => {
           </Time>
 
           <Progress>
-            <ProgressWalking style={{ width: `${progressFull}%` }} />
+            <ProgressWalking style={{ width: `${percentForDay}%` }} />
           </Progress>
         </ContentWrapper>
       </Shadow>
