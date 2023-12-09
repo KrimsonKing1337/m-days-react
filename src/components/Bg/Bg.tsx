@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import styled from 'astroturf/react';
 
+import { selectors } from 'store/main/selectors';
+
+import { ProgressBarVaporwave } from 'components/ProgressBarVaporwave';
 import { ProgressBar } from 'components/ProgressBar';
 import { Battery } from 'components/Battery';
+
+import { Themes } from '../../@types';
 
 import { getRandomImgPath } from './utils';
 
@@ -41,6 +47,8 @@ const NextImgCache = styled.div`
 //# endregion styles
 
 export const Bg = () => {
+  const theme = useSelector(selectors.theme);
+
   const [isChanging, setIsChanging] = useState(false);
   const [img, setImg] = useState('');
 
@@ -83,6 +91,18 @@ export const Bg = () => {
 
   const opacity = isChanging ? 0 : 1;
 
+  const ProgressBarComponent = () => {
+    if (theme === Themes.vaporwave) {
+      return (
+        <ProgressBarVaporwave />
+      );
+    }
+
+    return (
+      <ProgressBar />
+    );
+  };
+
   return (
     <ExtraWrapper>
       <Battery />
@@ -93,7 +113,7 @@ export const Bg = () => {
         <Wrapper style={{ backgroundImage: `url(${img})` }} />
       </AnimWrapper>
 
-      <ProgressBar />
+      <ProgressBarComponent />
     </ExtraWrapper>
   );
 };

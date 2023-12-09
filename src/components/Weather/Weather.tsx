@@ -4,6 +4,8 @@ import styled from 'astroturf/react';
 import { getCurrentWeather, getDailyWeather, getHourlyWeather } from 'm-days-core/api';
 import { getCurrentPosition, getSrcOfWeatherIcon } from 'm-days-core/utils';
 
+import { Themes } from '@types';
+
 import type { WeatherResp } from 'm-days-core/@types';
 
 const Wrapper = styled.div`
@@ -24,6 +26,12 @@ const Value = styled.div`
   font-family: "Avenir LT Std 35 Light Oblique";
   font-size: 38px;
   color: #fff;
+  
+  &:global {
+    &.themeVaporwave {
+      font-family: 'Digital-Cyrillic';
+    }
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -35,7 +43,11 @@ const IconWrapper = styled.div`
   }
 `;
 
-export const Weather = () => {
+export type WeatherProps = {
+  theme?: Themes;
+};
+
+export const Weather = ({ theme = Themes.default }: WeatherProps) => {
   const [geolocation, setGeolocation] = useState<GeolocationCoordinates | null>(null);
   const [weather, setWeather] = useState<WeatherResp | null>(null);
 
@@ -81,10 +93,16 @@ export const Weather = () => {
   const signNearTheTemperature = temperatureIsNotSubZero ? '+' : '-';
   const temperaturePrepared = temperatureIsNotSubZero ? temperature : temperature.toString().substring(1);
 
-  const value = `${signNearTheTemperature} ${temperaturePrepared} °C`;
+  let value = `${signNearTheTemperature} ${temperaturePrepared} °C`;
+
+  if (theme === Themes.vaporwave) {
+    value = `${signNearTheTemperature}${temperaturePrepared}°C`; // without spaces
+  }
 
   const iconSrc = getSrcOfWeatherIcon(weathercode, is_day);
   const iconSrcReady = `icons/weather/${iconSrc}`;
+
+  const valueClassName = theme === Themes.vaporwave ? 'themeVaporwave' : '';
 
   return (
     <Wrapper>
@@ -94,7 +112,7 @@ export const Weather = () => {
         </IconWrapper>
       )}
 
-      <Value>
+      <Value className={valueClassName}>
         {value}
       </Value>
     </Wrapper>

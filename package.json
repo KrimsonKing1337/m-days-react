@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run scan-imgs && webpack serve --mode=development --host 0.0.0.0 --disable-host-check",
     "build": "npm run scan-imgs && webpack --mode=production",
-    "scan-imgs": "node ../m-days-core/scripts/scanImgs.js ../m-days-public",
+    "scan-imgs": "node ../m-days-core/scripts/scanImages/scanImages.js ../m-days-public",
     "lint": "npm-run-all --parallel lint:*",
     "lint:ts": "eslint \"./src/**/*.{ts,tsx}\" --fix",
     "lint:css": "stylelint \"src/**/*.scss\" --fix",
