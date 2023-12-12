@@ -5,6 +5,7 @@ import { getValuesForProgressBar, twoDigitsAlways } from 'm-days-core/utils';
 
 import { Weather } from 'components/Weather';
 
+//#region styles
 const Wrapper = styled.div`
   user-select: none;
 
@@ -150,6 +151,7 @@ const PercentFull = styled.span`
   padding-top: 8px;
   color: #fff;
 `;
+//#endregion styles
 
 export const ProgressBar = () => {
   const initValues = getValuesForProgressBar();

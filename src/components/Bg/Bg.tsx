@@ -44,6 +44,15 @@ const NextImgCache = styled.div`
   width: 100px;
   opacity: 0;
 `;
+
+const QrImg = styled.img`
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  z-index: 1;
+  height: 125px;
+  width: 125px;
+`;
 //# endregion styles
 
 export const Bg = () => {
@@ -105,6 +114,8 @@ export const Bg = () => {
 
   return (
     <ExtraWrapper>
+      <QrImg src="icons/qr.png" alt="" />
+
       <Battery />
 
       <NextImgCache style={{ backgroundImage: `url(${nextImg})` }} />
