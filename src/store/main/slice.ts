@@ -1,12 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Themes } from '@types';
+import { Preset, Themes } from '@types';
 
 import { State } from './@types';
 
 export const initialState: State = {
   popupIsActive: false,
   theme: Themes.default,
+  preset: {
+    theme: Themes.default,
+    images: '',
+  },
 };
 
 const slice = createSlice({
@@ -18,6 +22,9 @@ const slice = createSlice({
     },
     setTheme(state, action: PayloadAction<Themes>) {
       state.theme = action.payload;
+    },
+    setPreset(state, action: PayloadAction<Preset>) {
+      state.preset = action.payload;
     },
   },
 });
