@@ -72,9 +72,9 @@ export const Bg = () => {
 
   useEffect(() => {
     const init = async () => {
-      const nextImage = await fetchImage();
+      const initImage = await fetchImage();
 
-      setNextImg(nextImage);
+      setImg(initImage);
     };
 
     init();
@@ -91,8 +91,6 @@ export const Bg = () => {
       setImg(nextImgRef.current);
       setNextImg(nextImage);
     };
-
-    imgChange();
 
     const interval = setInterval(async () => {
       setIsChanging(true);
