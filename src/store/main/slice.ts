@@ -11,8 +11,6 @@ export const initialState: State = {
     theme: Themes.default,
     images: '',
   },
-  image: '',
-  nextImage: '',
 };
 
 const slice = createSlice({
@@ -27,12 +25,6 @@ const slice = createSlice({
     },
     setPreset(state, action: PayloadAction<Preset>) {
       state.preset = action.payload;
-    },
-    setImage(state, action: PayloadAction<string>) {
-      state.image = action.payload;
-    },
-    setNextImage(state, action: PayloadAction<string>) {
-      state.nextImage = action.payload;
     },
   },
 });
