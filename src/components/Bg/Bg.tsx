@@ -57,6 +57,9 @@ const QrImg = styled.img`
 //# endregion styles
 
 const MemoizedWeather = memo(Weather);
+const MemoizedBattery = memo(Battery);
+
+const MemoizedQrImg = memo(QrImg);
 
 export const Bg = () => {
   const theme = useSelector(selectors.theme);
@@ -128,9 +131,9 @@ export const Bg = () => {
     <ExtraWrapper>
       <MemoizedWeather theme={theme} />
 
-      <QrImg src="icons/qr.png" alt="" />
+      <MemoizedQrImg src="icons/qr.png" alt="" />
 
-      <Battery />
+      <MemoizedBattery />
 
       <NextImgCache style={{ backgroundImage: `url(${nextImg})` }} />
 

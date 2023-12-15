@@ -108,8 +108,6 @@ export const Weather = ({ theme = Themes.default }: WeatherProps) => {
 
   const valueClassName = theme === Themes.vaporwave ? 'themeVaporwave' : '';
 
-  console.log('___ render');
-
   return (
     <Wrapper>
       {iconSrc && (
