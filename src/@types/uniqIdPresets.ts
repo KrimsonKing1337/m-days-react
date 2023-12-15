@@ -18,7 +18,7 @@ export const uniqIds: UniqIds = {
   },
 };
 
-export function getPreset(uniqIdURLSearchParam = '') {
+export function getPreset(uniqIdURLSearchParam = '{}') {
   const uniqIdValue = JSON.parse(uniqIdURLSearchParam);
 
   if (!uniqIdValue) {

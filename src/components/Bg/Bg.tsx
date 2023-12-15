@@ -11,7 +11,7 @@ import { Battery } from 'components/Battery';
 
 import { Themes } from '../../@types';
 
-import { getRandomImgPath } from './utils';
+import { fetchImage } from './utils';
 
 //# region styles
 const ExtraWrapper = styled.div`
@@ -61,29 +61,38 @@ export const Bg = () => {
   const [isChanging, setIsChanging] = useState(false);
   const [img, setImg] = useState('');
 
-  const nextImgInitValue = getRandomImgPath();
-  const [nextImg, setNextImg] = useState(nextImgInitValue);
-  const nextImgRef = useRef(nextImgInitValue);
+  const [nextImg, setNextImg] = useState('');
+  const nextImgRef = useRef('');
+
+  useEffect(() => {
+    const init = async () => {
+      const nextImage = await fetchImage();
+
+      setNextImg(nextImage);
+    };
+
+    init();
+  }, []);
 
   useEffect(() => {
     nextImgRef.current = nextImg;
   }, [nextImg]);
 
   useEffect(() => {
-    const imgChange = () => {
-      const nextImgNewValue = getRandomImgPath();
+    const imgChange = async () => {
+      const nextImage = await fetchImage();
 
       setImg(nextImgRef.current);
-      setNextImg(nextImgNewValue);
+      setNextImg(nextImage);
     };
 
     imgChange();
 
-    const interval = setInterval(() => {
+    const interval = setInterval(async () => {
       setIsChanging(true);
 
-      setTimeout(() => {
-        imgChange();
+      setTimeout(async () => {
+        await imgChange();
       }, 300); // transition duration
 
       setTimeout(() => {

@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "npm run scan-imgs && webpack serve --mode=development --host 0.0.0.0 --disable-host-check",
-    "build": "npm run scan-imgs && webpack --mode=production",
+    "start": "cross-env NODE_ENV=development webpack serve --mode=development --host 0.0.0.0 --disable-host-check",
+    "build": "cross-env NODE_ENV=production npm run scan-imgs && webpack --mode=production",
     "scan-imgs": "node ../m-days-core/scripts/scanImages/scanImages.js ../m-days-public",
     "lint": "npm-run-all --parallel lint:*",
     "lint:ts": "eslint \"./src/**/*.{ts,tsx}\" --fix",
@@ -62,6 +62,7 @@
     "concurrently": "^6.0.2",
     "copy-webpack-plugin": "^8.1.1",
     "core-js": "^3.11.1",
+    "cross-env": "^7.0.3",
     "css-loader": "^5.2",
     "dotenv": "^16.0.1",
     "eslint": "^7.25.0",

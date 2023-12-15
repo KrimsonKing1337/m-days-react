@@ -1,3 +1,5 @@
+const path = require('path');
+
 const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -5,7 +7,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin = require('terser-webpack-plugin');
-const path = require('path');
 
 const root = path.join(__dirname);
 const publicFolder = path.join(__dirname, '../m-days-public/');
@@ -155,6 +156,12 @@ module.exports = (env = {}, argv) => {
       hot: true,
       liveReload: false,
       historyApiFallback: true,
+      proxy: {
+        '/bg': {
+          target: 'http://localhost:3001',
+          router: () => 'http://localhost:3000',
+        },
+      },
     },
     output: {
       // пустой publicPath нужен для кордовы. она не может найти bundle.min.js, если его путь начинается с '/'
