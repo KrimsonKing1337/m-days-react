@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import styled from 'astroturf/react';
@@ -10,6 +10,7 @@ import { selectors } from 'store/main/selectors';
 import { ProgressBarVaporwave } from 'components/ProgressBarVaporwave';
 import { ProgressBar } from 'components/ProgressBar';
 import { Battery } from 'components/Battery';
+import { Weather } from 'components/Weather';
 
 import { fetchImage } from './utils';
 
@@ -54,6 +55,8 @@ const QrImg = styled.img`
   width: 125px;
 `;
 //# endregion styles
+
+const MemoizedWeather = memo(Weather);
 
 export const Bg = () => {
   const theme = useSelector(selectors.theme);
@@ -123,6 +126,8 @@ export const Bg = () => {
 
   return (
     <ExtraWrapper>
+      <MemoizedWeather theme={theme} />
+
       <QrImg src="icons/qr.png" alt="" />
 
       <Battery />

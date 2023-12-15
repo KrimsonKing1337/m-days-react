@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export function getBg() {
-  return axios.get('/bg', { responseType: 'blob' });
+  return axios.get('/bg?preset=gordey', { responseType: 'blob' });
 }

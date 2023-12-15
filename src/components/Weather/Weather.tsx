@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   position: absolute;
   top: 50px;
   left: 50px;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,9 +78,13 @@ export const Weather = ({ theme = Themes.default }: WeatherProps) => {
 
     updateWeather();
 
-    setInterval(() => {
+    const interval = setInterval(() => {
       updateWeather();
     }, 900000); // each 15 minutes
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [geolocation]);
 
   if (!weather || !weather.current_weather) {
@@ -103,6 +107,8 @@ export const Weather = ({ theme = Themes.default }: WeatherProps) => {
   const iconSrcReady = `icons/weather/${iconSrc}`;
 
   const valueClassName = theme === Themes.vaporwave ? 'themeVaporwave' : '';
+
+  console.log('___ render');
 
   return (
     <Wrapper>

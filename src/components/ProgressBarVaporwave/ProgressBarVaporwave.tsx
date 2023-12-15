@@ -3,10 +3,6 @@ import { useEffect, useState } from 'react';
 import styled from 'astroturf/react';
 import { getValuesForProgressBar, twoDigitsAlways } from 'm-days-core/utils';
 
-import { Themes } from '@types';
-
-import { Weather } from 'components/Weather';
-
 import { getPercentForDay } from './utils';
 
 const Wrapper = styled.div`
@@ -108,8 +104,6 @@ export const ProgressBarVaporwave = () => {
   return (
     <Wrapper>
       <Shadow>
-        <Weather theme={Themes.vaporwave} />
-
         <ContentWrapper>
           <Date>
             {`${dayToPrint}.${monthToPrint}.${year}`}

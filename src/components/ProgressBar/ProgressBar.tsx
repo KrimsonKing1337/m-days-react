@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import styled from 'astroturf/react';
 import { getValuesForProgressBar, twoDigitsAlways } from 'm-days-core/utils';
 
-import { Weather } from 'components/Weather';
-
 //#region styles
 const Wrapper = styled.div`
   user-select: none;
@@ -204,8 +202,6 @@ export const ProgressBar = () => {
   return (
     <Wrapper>
       <Shadow>
-        <Weather />
-
         <ContentWrapper className={noPercentClassName}>
           <Left>
             {!noPercent && (
