@@ -3,16 +3,12 @@ import { useSelector } from 'react-redux';
 
 import styled from 'astroturf/react';
 
-import { Themes } from '@types';
-
 import { selectors } from 'store/main/selectors';
 
-import { ProgressBarVaporwave } from 'components/ProgressBarVaporwave';
-import { ProgressBar } from 'components/ProgressBar';
 import { Battery } from 'components/Battery';
 import { Weather } from 'components/Weather';
 
-import { fetchImage } from './utils';
+import { fetchImage, getProgressBarComponent } from './utils';
 
 //# region styles
 const ExtraWrapper = styled.div`
@@ -113,17 +109,7 @@ export const Bg = () => {
 
   const opacity = isChanging ? 0 : 1;
 
-  const ProgressBarComponent = () => {
-    if (theme === Themes.vaporwave) {
-      return (
-        <ProgressBarVaporwave />
-      );
-    }
-
-    return (
-      <ProgressBar />
-    );
-  };
+  const ProgressBarComponent = () => getProgressBarComponent(theme);
 
   return (
     <ExtraWrapper>
