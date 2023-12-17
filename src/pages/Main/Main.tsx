@@ -1,42 +1,23 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { Themes } from '@types';
+import styled from 'astroturf/react';
 
-import { actions } from 'store/main/slice';
-
-import { Bg } from 'components/Bg';
-
-import { getPreset } from '../../@types/uniqIdPresets';
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+`;
 
 export const Main = () => {
-  const dispatch = useDispatch();
-
-  const { pathname, search } = useLocation();
-
-  useEffect(() => {
-    if (pathname !== '/standalone') {
-      window.history.replaceState({}, '', `/${search}`);
-    }
-
-    const searchParams = new URLSearchParams(search);
-    const theme = searchParams.get('theme') as Themes;
-    const uniqId = searchParams.get('uniq-id') || '{}';
-
-    if (theme) {
-      dispatch(actions.setTheme(theme));
-    }
-
-    const presetValue = getPreset(uniqId);
-
-    dispatch(actions.setPreset(presetValue));
-
-  }, [pathname, search]);
+  // todo: links to config of decoration theme and topics for content;
 
   return (
-    <>
-      <Bg />
-    </>
+    <Wrapper>
+      <Link to="/widget">
+        Go to the widget
+      </Link>
+    </Wrapper>
   );
 };
