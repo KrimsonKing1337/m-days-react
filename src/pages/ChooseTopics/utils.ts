@@ -1,4 +1,6 @@
-import { TopicAvailableVariants, TopicKeys } from '@types';
+import { TopicKeys } from '@enums';
+
+import { TopicAvailableVariants } from '@types';
 
 export const topicAvailableStates: TopicAvailableVariants = {
   [TopicKeys.default]: ['static'],

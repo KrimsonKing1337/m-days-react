@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { Preset, Themes, TopicKeys } from '@types';
+import { Themes, TopicKeys } from '@enums';
 
 import { State, Topic, TopicValue } from './@types';
 
@@ -12,10 +11,6 @@ export const initialState: State = {
     [TopicKeys.cyberpunk]: {},
     [TopicKeys.synthwave]: {},
     [TopicKeys.vaporwave]: {},
-  },
-  preset: {
-    theme: Themes.default,
-    images: '',
   },
 };
 
@@ -36,7 +31,7 @@ const slice = createSlice({
 
       topic[variant] = value;
     },
-    setPreset(state, action: PayloadAction<Preset>) {
+    setPreset(state, action: PayloadAction<string>) {
       state.preset = action.payload;
     },
   },

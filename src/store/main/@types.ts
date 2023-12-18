@@ -1,4 +1,6 @@
-import { Preset, Themes, TopicKeys, TopicVariantValue } from '@types';
+import { Themes, TopicKeys } from '@enums';
+
+import { TopicVariantValue } from '@types';
 
 export type TopicVariant = Record<TopicVariantValue, boolean>;
 
@@ -7,7 +9,7 @@ export type Topic = Partial<TopicVariant>;
 export interface State {
   popupIsActive: boolean;
   theme: Themes;
-  preset: Preset;
+  preset?: string;
   topics: Record<TopicKeys, Topic>;
 }
 

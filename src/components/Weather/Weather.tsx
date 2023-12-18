@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 import styled from 'astroturf/react';
 import { getCurrentWeather, getDailyWeather, getHourlyWeather } from 'm-days-core/api';
 import { getCurrentPosition, getSrcOfWeatherIcon } from 'm-days-core/utils';
-
-import { Themes } from '@types';
+import { Themes } from '@enums';
 
 import type { WeatherResp } from 'm-days-core/@types';
 

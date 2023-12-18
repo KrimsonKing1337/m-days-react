@@ -1,6 +1,5 @@
 import styled from 'astroturf/react';
-
-import { TopicKeys } from '@types';
+import { TopicKeys } from '@enums';
 
 import { Variants } from './Variants';
 

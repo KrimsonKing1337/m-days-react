@@ -1,6 +1,5 @@
 import styled from 'astroturf/react';
-
-import { TopicKeys } from '@types';
+import { TopicKeys } from '@enums';
 
 import { topicAvailableStates } from './utils';
 import { Topic } from './components/Topic';

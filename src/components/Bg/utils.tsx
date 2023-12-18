@@ -1,6 +1,5 @@
 import { getBg } from 'api';
-
-import { Themes } from '@types';
+import { Themes } from '@enums';
 
 import { ProgressBarVaporwave } from '../ProgressBarVaporwave';
 import { ProgressBar } from '../ProgressBar';

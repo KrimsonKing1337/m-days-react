@@ -1,14 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'astroturf/react';
+import { TopicKeys } from '@enums';
 
-import { TopicKeys, TopicVariantValue } from '@types';
+import { TopicVariantValue } from '@types';
 
 import { selectors } from 'store/main/selectors';
+import { actions } from 'store/main/slice';
+
+import { LinkButton } from 'components/LinkButton';
 
 import { topicAvailableStates } from '../utils';
-import { LinkButton } from '../../../components/LinkButton';
-import { actions } from '../../../store/main/slice';
 
 const Wrapper = styled.div`
   display: flex;
