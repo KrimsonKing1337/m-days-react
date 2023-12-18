@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { nanoid } from 'nanoid';
 import styled from 'astroturf/react';
 
-import { Topics } from '@types';
+import { Topics, TopicState } from '@types';
+
+import { actions } from 'store/main/slice';
+import { selectors } from 'store/main/selectors';
+
+import { topicAvailableStates } from './utils';
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,19 +20,29 @@ const Wrapper = styled.div`
 const TopicsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 `;
 
 const TopicStyled = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100px;
-  height: 100px;
   gap: 10px;
   color: #fff;
-  
+`;
+
+const VariantsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+`;
+
+const Variant = styled.div`
   &:global {
     &.isChecked {
       color: #666;
@@ -39,40 +53,55 @@ const TopicStyled = styled.div`
 `;
 
 type TopicProps = {
-  label: string;
+  label: Topics;
 };
 
-const topicsToChoose: TopicProps[] = [
-  {
-    label: Topics.default,
-  },
-  {
-    label: Topics.cyberpunk,
-  },
-  {
-    label: Topics.synthwave,
-  },
-  {
-    label: Topics.vaporwave,
-  },
-];
-
 const Topic = ({ label }: TopicProps) => {
-  const [chosen, setChosen] = useState(false);
+  const dispatch = useDispatch();
 
-  const clickHandler = () => {
-    setChosen(!chosen);
+  const topics = useSelector(selectors.topics);
+
+  const variants = topicAvailableStates[label];
+
+  const clickHandler = (variant: TopicState) => {
+    const topic = topics[label];
+
+    const stateValueCur = topic[variant];
+
+    const newValue = {
+      key: label,
+      state: variant,
+      value: !stateValueCur,
+    };
+
+    dispatch(actions.setTopic(newValue));
   };
 
-  let className = 'linkButton ';
-
-  if (chosen) {
-    className += 'isChecked';
-  }
-
   return (
-    <TopicStyled className={className} onClick={clickHandler}>
+    <TopicStyled>
       {label}
+
+      <VariantsWrapper>
+        {variants.map((variantCur) => {
+          const topic = topics[label];
+
+          let className = 'linkButton ';
+
+          if (topic[variantCur]) {
+            className += 'isChecked';
+          }
+
+          return (
+            <Variant
+              key={variantCur}
+              className={className}
+              onClick={() => clickHandler(variantCur)}
+            >
+              {variantCur}
+            </Variant>
+          );
+        })}
+      </VariantsWrapper>
     </TopicStyled>
   );
 };
@@ -81,11 +110,14 @@ export const ChooseTopics = () => {
   return (
     <Wrapper>
       <TopicsWrapper>
-        {topicsToChoose.map((topicToChooseCur) => {
-          const { label } = topicToChooseCur;
+        {Object.keys(topicAvailableStates).map((keyCur) => {
+          const key = keyCur as Topics;
 
           return (
-            <Topic key={nanoid()} label={label} />
+            <Topic
+              key={key}
+              label={key}
+            />
           );
         })}
       </TopicsWrapper>

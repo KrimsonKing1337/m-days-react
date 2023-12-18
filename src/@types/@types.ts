@@ -13,3 +13,7 @@ export enum Topics {
   'synthwave' = 'synthwave',
   'cyberpunk' = 'cyberpunk',
 }
+
+export type TopicState = 'static' | 'dynamic';
+
+export type TopicAvailableStates = Record<Topics, TopicState[]>;
