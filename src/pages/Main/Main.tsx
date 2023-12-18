@@ -26,13 +26,13 @@ export const Main = () => {
   return (
     <Wrapper>
       <LinksWrapper>
-        <Link to="/widget">
+        <Link to="/choose-topics">
           Modern browsers
         </Link>
 
-        <Link to="/widget">
+        <a href="/legacy">
           Outdated browsers
-        </Link>
+        </a>
       </LinksWrapper>
     </Wrapper>
   );

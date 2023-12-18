@@ -6,3 +6,10 @@ export enum Themes {
 }
 
 export type Preset = UniqId;
+
+export enum Topics {
+  'default' = 'default',
+  'vaporwave' = 'vaporwave',
+  'synthwave' = 'synthwave',
+  'cyberpunk' = 'cyberpunk',
+}

@@ -2,7 +2,13 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { store } from 'store';
-import { About, Config, Main, Widget } from 'pages';
+import {
+  About,
+  ChooseTopics,
+  Config,
+  Main,
+  Widget,
+} from 'pages';
 
 import { MenuBtnAndPopup } from './components/MenuBtnAndPopup';
 
@@ -16,6 +22,8 @@ export const App = () => {
 
         <Routes>
           <Route path="/" element={<Main />} />
+
+          <Route path="/choose-topics" element={<ChooseTopics />} />
 
           <Route path="/widget" element={<Widget />} />
           <Route path="/standalone" element={<Widget />} />
