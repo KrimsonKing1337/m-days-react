@@ -1,15 +1,24 @@
+import { Link } from 'react-router-dom';
+
 import styled from 'astroturf/react';
 import { TopicKeys } from '@enums';
 
 import { topicAvailableStates } from './utils';
 import { Topic } from './components/Topic';
 
-const Wrapper = styled.div`
+const ExtraWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100vh;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 50px;
 `;
 
 const TopicsWrapper = styled.div`
@@ -21,21 +30,25 @@ const TopicsWrapper = styled.div`
 
 export const ChooseTopics = () => {
   return (
-    <Wrapper>
-      <TopicsWrapper>
-        {Object.keys(topicAvailableStates).map((keyCur) => {
-          const key = keyCur as TopicKeys;
+    <ExtraWrapper>
+      <Wrapper>
+        <TopicsWrapper>
+          {Object.keys(topicAvailableStates).map((keyCur) => {
+            const key = keyCur as TopicKeys;
 
-          return (
-            <Topic
-              key={key}
-              label={key}
-            />
-          );
-        })}
-      </TopicsWrapper>
+            return (
+              <Topic
+                key={key}
+                label={key}
+              />
+            );
+          })}
+        </TopicsWrapper>
 
-      Next
-    </Wrapper>
+        <Link to="/">
+          Next
+        </Link>
+      </Wrapper>
+    </ExtraWrapper>
   );
 };

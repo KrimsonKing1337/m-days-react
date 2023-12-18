@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import styled from 'astroturf/react';
 import { TopicKeys } from '@enums';
 
@@ -11,6 +13,7 @@ const Wrapper = styled.div`
   width: 100px;
   gap: 10px;
   color: #fff;
+  cursor: pointer;
 `;
 
 export type TopicProps = {
@@ -18,11 +21,29 @@ export type TopicProps = {
 };
 
 export const Topic = ({ label }: TopicProps) => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const clickHandler = () => {
+    setIsClicked(!isClicked);
+  };
+
+  let opacity = '0';
+
+  if (isClicked) {
+    opacity = '1';
+  }
+
+  const style = { opacity };
+
   return (
     <Wrapper>
-      {label}
+      <div onClick={clickHandler}>
+        {label}
+      </div>
 
-      <Variants topicKey={label} />
+      <div style={style}>
+        <Variants topicKey={label} />
+      </div>
     </Wrapper>
   );
 };
