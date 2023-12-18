@@ -1,8 +1,8 @@
-import { TopicAvailableStates, Topics } from '@types';
+import { TopicAvailableVariants, TopicKeys } from '@types';
 
-export const topicAvailableStates: TopicAvailableStates = {
-  [Topics.default]: ['static'],
-  [Topics.cyberpunk]: ['static', 'dynamic'],
-  [Topics.synthwave]: ['static', 'dynamic'],
-  [Topics.vaporwave]: ['static', 'dynamic'],
+export const topicAvailableStates: TopicAvailableVariants = {
+  [TopicKeys.default]: ['static'],
+  [TopicKeys.cyberpunk]: ['static', 'dynamic'],
+  [TopicKeys.synthwave]: ['static', 'dynamic'],
+  [TopicKeys.vaporwave]: ['static', 'dynamic'],
 };

@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Preset, Themes, Topics, TopicState } from '@types';
+import { Preset, Themes, TopicKeys } from '@types';
 
-import { State, T } from './@types';
+import { State, Topic, TopicValue } from './@types';
 
 export const initialState: State = {
   popupIsActive: false,
   theme: Themes.default,
   topics: {
-    [Topics.default]: {},
-    [Topics.cyberpunk]: {},
-    [Topics.synthwave]: {},
-    [Topics.vaporwave]: {},
+    [TopicKeys.default]: {},
+    [TopicKeys.cyberpunk]: {},
+    [TopicKeys.synthwave]: {},
+    [TopicKeys.vaporwave]: {},
   },
   preset: {
     theme: Themes.default,
@@ -29,12 +29,12 @@ const slice = createSlice({
     setTheme(state, action: PayloadAction<Themes>) {
       state.theme = action.payload;
     },
-    setTopic(state, action: PayloadAction<{ key: Topics, state: TopicState, value: boolean}>) {
-      const { key, value, state: topicState } = action.payload;
+    setTopic(state, action: PayloadAction<TopicValue>) {
+      const { key, value, variant } = action.payload;
 
-      const topicCur = state.topics[key] as T;
+      const topic = state.topics[key] as Topic;
 
-      topicCur[topicState] = value;
+      topic[variant] = value;
     },
     setPreset(state, action: PayloadAction<Preset>) {
       state.preset = action.payload;

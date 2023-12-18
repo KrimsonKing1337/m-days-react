@@ -28,19 +28,16 @@ body {
   font-family: "Helv-4-Light", Arial, sans-serif;
 }
 
-:global {
-  a,
-  .linkButton {
-    font-family: "ProximaNovaRegular";
-    text-decoration: underline;
-    color: #fff;
-    transition: ease opacity 0.3s 0s;
+a {
+  font-family: "ProximaNovaRegular";
+  text-decoration: underline;
+  color: #fff;
+  transition: ease opacity 0.3s 0s;
 
-    &:hover {
-      color: #666;
-      opacity: 0.5;
-      cursor: pointer;
-    }
+  &:hover {
+    color: #666;
+    opacity: 0.5;
+    cursor: pointer;
   }
 }
 

@@ -7,13 +7,13 @@ export enum Themes {
 
 export type Preset = UniqId;
 
-export enum Topics {
+export enum TopicKeys {
   'default' = 'default',
   'vaporwave' = 'vaporwave',
   'synthwave' = 'synthwave',
   'cyberpunk' = 'cyberpunk',
 }
 
-export type TopicState = 'static' | 'dynamic';
+export type TopicVariantValue = 'static' | 'dynamic';
 
-export type TopicAvailableStates = Record<Topics, TopicState[]>;
+export type TopicAvailableVariants = Record<TopicKeys, TopicVariantValue[]>;

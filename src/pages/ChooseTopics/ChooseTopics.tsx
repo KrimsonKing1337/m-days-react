@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'astroturf/react';
 
-import { Topics, TopicState } from '@types';
+import { TopicKeys, TopicVariantValue } from '@types';
 
 import { actions } from 'store/main/slice';
 import { selectors } from 'store/main/selectors';
+
+import { LinkButton } from 'components/LinkButton/LinkButton';
 
 import { topicAvailableStates } from './utils';
 
@@ -42,18 +44,8 @@ const VariantsWrapper = styled.div`
   gap: 6px;
 `;
 
-const Variant = styled.div`
-  &:global {
-    &.isChecked {
-      color: #666;
-      opacity: 0.5;
-      cursor: pointer;
-    }
-  }
-`;
-
 type TopicProps = {
-  label: Topics;
+  label: TopicKeys;
 };
 
 const Topic = ({ label }: TopicProps) => {
@@ -63,14 +55,14 @@ const Topic = ({ label }: TopicProps) => {
 
   const variants = topicAvailableStates[label];
 
-  const clickHandler = (variant: TopicState) => {
+  const clickHandler = (variant: TopicVariantValue) => {
     const topic = topics[label];
 
     const stateValueCur = topic[variant];
 
     const newValue = {
       key: label,
-      state: variant,
+      variant,
       value: !stateValueCur,
     };
 
@@ -84,21 +76,16 @@ const Topic = ({ label }: TopicProps) => {
       <VariantsWrapper>
         {variants.map((variantCur) => {
           const topic = topics[label];
-
-          let className = 'linkButton ';
-
-          if (topic[variantCur]) {
-            className += 'isChecked';
-          }
+          const isChecked = topic[variantCur] || false;
 
           return (
-            <Variant
+            <LinkButton
               key={variantCur}
-              className={className}
+              isChecked={isChecked}
               onClick={() => clickHandler(variantCur)}
             >
               {variantCur}
-            </Variant>
+            </LinkButton>
           );
         })}
       </VariantsWrapper>
@@ -111,7 +98,7 @@ export const ChooseTopics = () => {
     <Wrapper>
       <TopicsWrapper>
         {Object.keys(topicAvailableStates).map((keyCur) => {
-          const key = keyCur as Topics;
+          const key = keyCur as TopicKeys;
 
           return (
             <Topic
@@ -121,6 +108,8 @@ export const ChooseTopics = () => {
           );
         })}
       </TopicsWrapper>
+
+      Next
     </Wrapper>
   );
 };
