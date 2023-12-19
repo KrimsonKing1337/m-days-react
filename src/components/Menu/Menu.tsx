@@ -41,6 +41,14 @@ const Item = styled.div`
   &:nth-child(1) {
     margin-top: 0;
   }
+  
+  a {
+    margin-top: 12px;
+
+    &:nth-child(1) {
+      margin-top: 0;
+    }
+  }
 `;
 
 export const Menu = () => {
