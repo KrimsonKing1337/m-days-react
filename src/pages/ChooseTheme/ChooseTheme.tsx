@@ -40,7 +40,7 @@ export const ChooseTheme = () => {
           })}
         </ThemesWrapper>
 
-        <Link to="/">
+        <Link to="/widget">
           Next
         </Link>
       </Wrapper>
