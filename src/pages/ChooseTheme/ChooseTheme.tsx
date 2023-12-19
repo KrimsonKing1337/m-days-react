@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
 
 import styled from 'astroturf/react';
-import { TopicKeys } from '@enums';
+import { Themes } from '@enums';
 
-import { topicAvailableVariants } from './utils';
-import { Topic } from './components/Topic';
+import { Theme } from './components/Theme';
 
 const ExtraWrapper = styled.div`
   display: flex;
@@ -21,31 +20,27 @@ const Wrapper = styled.div`
   gap: 50px;
 `;
 
-const TopicsWrapper = styled.div`
+const ThemesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
+  gap: 10px;
 `;
 
-export const ChooseTopics = () => {
+export const ChooseTheme = () => {
   return (
     <ExtraWrapper>
       <Wrapper>
-        <TopicsWrapper>
-          {Object.keys(topicAvailableVariants).map((keyCur) => {
-            const key = keyCur as TopicKeys;
-
+        <ThemesWrapper>
+          {Object.values(Themes).map((themeCur: Themes) => {
             return (
-              <Topic
-                key={key}
-                label={key}
-              />
+              <Theme key={themeCur} label={themeCur} />
             );
           })}
-        </TopicsWrapper>
+        </ThemesWrapper>
 
-        <Link to="/choose-theme">
+        <Link to="/">
           Next
         </Link>
       </Wrapper>

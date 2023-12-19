@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { store } from 'store';
 import {
   About,
+  ChooseTheme,
   ChooseTopics,
   Config,
   Main,
@@ -24,6 +25,7 @@ export const App = () => {
           <Route path="/" element={<Main />} />
 
           <Route path="/choose-topics" element={<ChooseTopics />} />
+          <Route path="/choose-theme" element={<ChooseTheme />} />
 
           <Route path="/widget" element={<Widget />} />
           <Route path="/standalone" element={<Widget />} />
