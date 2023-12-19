@@ -10,7 +10,7 @@ import { actions } from 'store/main/slice';
 
 import { LinkButton } from 'components/LinkButton';
 
-import { topicAvailableStates } from '../utils';
+import { topicAvailableVariants } from '../utils';
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ export const Variants = ({ topicKey }: VariantProps) => {
 
   const topics = useSelector(selectors.topics);
 
-  const variants = topicAvailableStates[topicKey];
+  const variants = topicAvailableVariants[topicKey];
 
   const clickHandler = (variant: TopicVariantValue) => {
     const topic = topics[topicKey];

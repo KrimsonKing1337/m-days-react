@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'astroturf/react';
 import { TopicKeys } from '@enums';
 
-import { topicAvailableStates } from './utils';
+import { topicAvailableVariants } from './utils';
 import { Topic } from './components/Topic';
 
 const ExtraWrapper = styled.div`
@@ -33,7 +33,7 @@ export const ChooseTopics = () => {
     <ExtraWrapper>
       <Wrapper>
         <TopicsWrapper>
-          {Object.keys(topicAvailableStates).map((keyCur) => {
+          {Object.keys(topicAvailableVariants).map((keyCur) => {
             const key = keyCur as TopicKeys;
 
             return (

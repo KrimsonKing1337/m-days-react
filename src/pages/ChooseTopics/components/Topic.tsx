@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import styled from 'astroturf/react';
 import { TopicKeys } from '@enums';
+
+import { actions } from '../../../store/main/slice';
+import { topicAvailableVariants } from '../utils';
 
 import { Variants } from './Variants';
 
@@ -21,10 +25,26 @@ export type TopicProps = {
 };
 
 export const Topic = ({ label }: TopicProps) => {
+  const dispatch = useDispatch();
+
   const [isClicked, setIsClicked] = useState(false);
 
   const clickHandler = () => {
     setIsClicked(!isClicked);
+
+    if (!isClicked) {
+      const availableVariants = topicAvailableVariants[label];
+
+      availableVariants.forEach((variantCur) => {
+        const value = {
+          key: label,
+          variant: variantCur,
+          value: false,
+        };
+
+        dispatch(actions.setTopic(value));
+      });
+    }
   };
 
   let opacity = '0';
