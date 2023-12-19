@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { nanoid } from 'nanoid';
 import styled from 'astroturf/react';
 
 import { mainActions } from 'store/main';
@@ -47,7 +46,12 @@ const Item = styled.div`
 export const Menu = () => {
   const dispatch = useDispatch();
 
-  const linkClickHandler = () => {
+  const linkClickHandler = (label: string) => {
+    if (label === 'Config') {
+      localStorage.setItem('theme', '');
+      localStorage.setItem('topics', '');
+    }
+
     dispatch(mainActions.setPopupIsActive(false));
   };
 
@@ -75,7 +79,7 @@ export const Menu = () => {
             const { to, label } = linkCur;
 
             return (
-              <Link key={nanoid()} to={to} onClick={linkClickHandler}>
+              <Link key={label} to={to} onClick={() => linkClickHandler(label)}>
                 {label}
               </Link>
             );

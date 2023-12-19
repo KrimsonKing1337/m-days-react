@@ -7,7 +7,9 @@ export const initialState: State = {
   popupIsActive: false,
   theme: Themes.default,
   topics: {
-    [TopicKeys.default]: {},
+    [TopicKeys.default]: {
+      'static': true,
+    },
     [TopicKeys.cyberpunk]: {},
     [TopicKeys.synthwave]: {},
     [TopicKeys.vaporwave]: {},
@@ -20,6 +22,12 @@ const slice = createSlice({
   reducers: {
     setPopupIsActive(state, action: PayloadAction<boolean>) {
       state.popupIsActive = action.payload;
+    },
+    setThemeAndTopics(state, action: PayloadAction<Pick<State, 'theme' | 'topics'>>) {
+      const { theme, topics } = action.payload;
+
+      state.theme = theme;
+      state.topics = topics;
     },
     setTheme(state, action: PayloadAction<Themes>) {
       state.theme = action.payload;
